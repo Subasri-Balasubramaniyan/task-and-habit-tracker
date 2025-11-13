@@ -1,0 +1,5961 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+* {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Quicksand', sans-serif;
+  /* background-color: #f8f9fb; */
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+header {
+  /* background-color: #fff; */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+} 
+
+
+.topbar {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  margin-left: 5px;
+}
+.topbar h1{
+  font-size: 30px;
+}
+.topbar p{
+  font-size: 15px;
+}
+nav{
+  border: none;
+  color: #000;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+  background-color: #f4f5f7;
+  /* border-bottom: 1px solid #ddd; */
+  width: 1500px;
+  gap: 10px; /* optional fine control of spacing between items */
+}
+
+nav li {
+  margin-right: 0; /* remove margin */
+  cursor: pointer;
+  padding: 4px 4px; /* reduced from 8px 15px */
+  border-radius: 8px;
+  color: #555;
+  transition: background 0.3s, color 0.3s;
+}
+
+
+nav li i {
+  margin-right: 8px;
+}
+nav li:hover,
+nav li.active {
+  border: none;
+  color:#555;
+}
+nav li.active i {
+  color: #10b981 !important;
+}
+
+
+.task-page {
+  padding: 30px;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto 20px;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #ccc; /* Outer border */
+  border-radius: 30px;
+  padding: 5px;
+  background: #111;
+}
+
+.search-box i {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.search-box input {
+  border: none; /* Removes inner border */
+  outline: none;
+  padding: 10px 15px 10px 40px;
+  border-radius: 25px;
+  background: transparent; /* Matches outer background */
+  color: #eee;
+  font-size: 1rem;
+  width: 250px;
+}
+
+.search-box input::placeholder {
+  color: #888;
+}
+
+.search-box input:focus + i {
+  color: #007bff;
+}
+
+.search-box input:focus {
+  background: transparent;
+}
+
+@media (max-width: 600px) {
+  .search-box input {
+    width: 180px;
+    font-size: 0.9rem;
+  }
+}
+
+
+.add-task {
+  background-color:#54BD95;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.add-task:hover {
+  background-color:#54BD95;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 100px;
+  color: #777;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #ccc;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* === Modal (Add/Edit Task) === */
+.modal {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 12px;
+  width: 800px; /* ⬅ increased width */
+  max-width: 95%; /* ⬅ stays responsive on small screens */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #666;
+  cursor: pointer;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: #2bc48a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px auto;
+  width: 1380px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-card .task-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+}
+
+.task-card .task-actions i {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.task-card .fa-pen-to-square {
+  color: #00b894;
+}
+
+.task-card .fa-trash {
+  color: #e74c3c;
+}
+
+.task-card .fa-chevron-up,
+.task-card .fa-chevron-down {
+  color: #333;
+}
+.status-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.subtasks-container {
+  margin-top: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.subtask-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subtask-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.subtask-list li span.done {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.add-subtask {
+  display: flex;
+  margin-top: 8px;
+  gap: 6px;
+}
+
+.add-subtask input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.add-subtask-btn {
+  background: #00b894;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: 0.3s;
+}
+
+.add-subtask-btn:hover {
+  background: #54BD95;
+}
+
+.no-subtasks {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+.priority {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+.priority:hover {
+  transform: scale(1.05);
+}
+/* ===== Filter and Sort Bar ===== */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width:1450px;
+  margin: 20px auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+}
+
+.filters-section,
+.sort-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+}
+
+.filter-bar i {
+  color: grey;
+  font-size: 1rem;
+}
+
+.filter-bar select {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background-color: #fafafa;
+  font-size: 0.9rem;
+  color: #444;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-bar select:hover {
+  border-color: #00b894;
+  background-color: #f4fffa;
+}
+
+.filter-bar label {
+  font-weight: 600;
+  color: #444;
+}
+.subtask-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.subtask-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subtask-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.subtask-icons i {
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.subtask-icons .edit-subtask {
+  color: #007bff;
+}
+
+.subtask-icons .edit-subtask:hover {
+  color: #0056b3;
+}
+
+.subtask-icons .delete-subtask {
+  color: #dc3545;
+}
+
+.subtask-icons .delete-subtask:hover {
+  color: #a71d2a;
+}
+
+/* === Delete Modal Styles === */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.delete-modal {
+  background: #fff;
+  border-radius: 12px;
+  width: 360px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.25s ease;
+}
+
+.delete-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.delete-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #999;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+#deleteMessage {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: lightseagreen;
+}
+
+.cancel-btn:hover {
+  background: #e3e3e3;
+}
+
+.delete-btn {
+  background:lightseagreen;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.delete-btn:hover {
+  background: lightseagreen;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* nav{
+  height: 40px;
+}
+nav ul li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+}
+
+nav ul li a:hover {
+
+  color: white;
+  height: 20px;
+  border: none;
+  text-decoration: underline;
+} */
+
+/* 🌙 Dark Mode Toggle Icon */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2000;
+  background-color: white;
+}
+
+.dark-mode-toggle i {
+  font-size: 1.3rem;
+  color: white;
+}
+
+.dark-mode-toggle:hover {
+  background: transparent;
+}
+
+.dark-mode-toggle:hover i {
+  color: #fff;
+}
+
+/* 🌑 DARK MODE BASE */
+body.dark-mode {
+  background-color:white!important;
+  color: #fff !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* General Text + Borders */
+body.dark-mode * {
+  color: #eaeaea !important;
+  border-color: #333 !important;
+  background-color: transparent !important;
+}
+
+/* Containers, Cards, Inputs */
+body.dark-mode header,
+body.dark-mode nav,
+body.dark-mode main,
+body.dark-mode section,
+body.dark-mode footer,
+body.dark-mode .task-card,
+body.dark-mode .filter-bar,
+body.dark-mode form,
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #121212 !important;
+  border: 1px solid #333 !important;
+  color: #eaeaea !important;
+}
+
+/* ✅ Buttons */
+body.dark-mode button,
+body.dark-mode .btn,
+body.dark-mode .add-task-btn {
+  background-color: #54BD95 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+  transition: background 0.3s ease;
+}
+body.dark-mode button:hover,
+body.dark-mode .btn:hover,
+body.dark-mode .add-task-btn:hover {
+  background-color: #54BD95 !important; /* slightly brighter on hover */
+}
+
+/* ✅ Inputs, Search Box */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #1e1e1e !important;
+  color: #fff !important;
+}
+
+/* ✅ Icons */
+body.dark-mode i,
+body.dark-mode svg {
+  filter: none !important;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
+/* ✅ Priority Colors */
+.priority-high,
+body.dark-mode .priority-high {
+  background-color: red !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.priority-medium,
+body.dark-mode .priority-medium {
+  background-color: gold !important;
+  color: #000 !important;
+  border: none !important;
+}
+
+.priority-low,
+body.dark-mode .priority-low {
+  background-color: blueviolet !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* ✅ Tables and Pagination */
+body.dark-mode .table,
+body.dark-mode .pagination {
+  background-color: #121212 !important;
+  border-color: #333 !important;
+  color: #eaeaea !important;
+}
+
+/* ✅ Navbar Hover Effect */
+nav {
+  transition: background-color 0.3s ease;
+}
+nav:hover {
+  background-color:lightblue !important;
+  color: #fff !important;
+}
+
+/* ✅ Grey Borders for Elements */
+body.dark-mode .task-card,
+body.dark-mode .filter-bar,
+body.dark-mode .task-form,
+body.dark-mode .pagination,
+body.dark-mode .task-list {
+  border: 1px solid #333 !important;
+}
+
+/* ✅ Toggle Button in Dark Mode */
+body.dark-mode .dark-mode-toggle {
+  background: #111;
+  border: 1px solid #333;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .dark-mode-toggle i {
+  color: #ffeb3b;
+}
+
+/* ✅ Smooth Transition for All Elements */
+body, body * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.move-up,
+.move-down {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin: 0 5px;
+  transition: transform 0.2s ease;
+}
+
+.move-up:hover,
+.move-down:hover {
+  color: lightseagreen;
+  transform: scale(1.1);
+}
+.fa-chevron-up:hover,
+.fa-chevron-down:hover {
+  color: lightseagreen;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+/* ===== Tighter layout for task header icons ===== */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* reduced gap between icons */
+  margin-left: auto; /* push icons to the right */
+}
+
+.task-actions i {
+  cursor: pointer;
+  font-size: 1rem;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.task-actions i:hover {
+  color: lightseagreen;
+}
+
+/* ===== Compact subtask layout ===== */
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* reduce space between checkbox and text */
+  margin-bottom: 4px;
+}
+
+.subtask-item input[type="checkbox"] {
+  transform: scale(1.1);
+  margin-right: 4px;
+}
+
+.subtask-item span {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.subtask-item i {
+  font-size: 0.9rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.subtask-item i:hover {
+  color: lightseagreen;
+}
+/* Overlay background */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+/* Modal Box */
+.delete-modal {
+  background: #fff;
+  border-radius: 8px;
+  width: 380px;
+  padding: 20px 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.delete-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.delete-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #777;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Message */
+#deleteMessage {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+#deleteMessage strong {
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-btn,
+.delete-btn {
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn {
+  background: transparent;
+  border: 1px solid #aaa;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #f3f3f3;
+}
+
+.delete-btn {
+  background: #3cb371; /* lightseagreen variant */
+  color: #fff;
+  border: none;
+}
+
+.delete-btn:hover {
+  background: #2e8b7e;
+}
+
+/* Dark Mode Support */
+body.dark-mode .delete-modal {
+  background: #222;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark-mode #deleteMessage {
+  color: #eaeaea;
+}
+
+body.dark-mode .cancel-btn {
+  border: 1px solid #666;
+  color: #eaeaea;
+}
+
+body.dark-mode .cancel-btn:hover {
+  background: #333;
+}
+
+body.dark-mode .delete-btn {
+  background: grey;
+}
+/* Overlay */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(200, 200, 200, 0.3);
+  backdrop-filter: blur(2px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+/* Modal box */
+.delete-modal {
+  background: #fff;
+  border-radius: 10px;
+  width: 480px;
+  padding: 20px 25px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Header */
+.delete-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.delete-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Message text */
+#deleteMessage {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+#deleteMessage strong {
+  font-weight: 600;
+}
+
+/* Buttons */
+.delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #555;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #f3f3f3;
+}
+
+.delete-btn {
+  background: #3cb371;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #2e8b57;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.delete-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 22px;
+  color: #555;
+}
+
+.modal-body {
+  margin: 15px 0;
+  color: #333;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn.delete {
+  background: #e74c3c;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* 🌙 Dark Mode Button */
+#darkModeToggle {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: inherit;
+  transition: transform 0.2s ease;
+  background-color: black;
+}
+#darkModeToggle:hover {
+  transform: scale(1.2);
+}
+
+/* 🌙 Dark Mode for Modals */
+body.dark-mode .modal,
+body.dark-mode .edit-modal {
+  background-color: #1e1e1e !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #444;
+}
+
+body.dark-mode .modal input,
+body.dark-mode .modal textarea,
+body.dark-mode .modal select,
+body.dark-mode .edit-modal input,
+body.dark-mode .edit-modal textarea,
+body.dark-mode .edit-modal select {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border: 1px solid #555;
+}
+
+body.dark-mode .modal button,
+body.dark-mode .edit-modal button {
+  background-color: #20b2aa;
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode .modal button:hover,
+body.dark-mode .edit-modal button:hover {
+  background-color: #2ed6cb;
+}
+
+/* Keep overlay light */
+.modal-overlay,
+.edit-modal-overlay {
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.modal-actions button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+body.dark-mode nav {
+  padding: 1.2rem 2rem; /* adds slight thickness or width appearance */
+  transition: all 0.3s ease;
+}
+body.dark-mode nav a:hover {
+  color: lightseagreen !important;
+  text-shadow: 0 0 8px rgba(32, 178, 170, 0.7);
+}
+.toast {
+  visibility: hidden;
+  min-width: 350px;
+  background-color: #d1f0e1;
+  color: #000;
+  text-align: left;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 8px solid #4cb17c;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s ease-in-out;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.toast-close {
+  margin-left: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #444;
+}
+/* ==============================
+   💻 Tablet View (601px - 992px)
+============================== */
+@media (min-width: 601px) and (max-width: 992px) {
+  header {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .topbar h1 {
+    font-size: 30px;
+    margin-bottom: 0.4rem;
+  }
+
+  .topbar p {
+    font-size:15px;
+    color: #555;
+  }
+
+  /* ✅ Centered navbar */ */
+   nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+  nav ul li {
+    list-style: none;
+  }
+
+  nav ul li a {
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+  }
+
+  nav ul li.active a,
+  nav ul li a:hover {
+    background: #e6f4ea;
+  } 
+
+  /* ✅ Filter and Sort section */
+  .filters,
+  .task-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+
+  .filters select,
+  .task-controls input,
+  .task-controls button {
+    width: auto;
+    min-width: 140px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .task-controls input[type="text"] {
+    width: 60%;
+    max-width: 320px;
+  }
+
+  .task-controls button {
+    background-color: #3bb273;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .task-controls button:hover {
+    background-color: #34a066;
+  }
+
+  /* ✅ Task section */
+  .task-card {
+    max-width: 700px;
+    margin: 1rem auto;
+    padding: 1.2rem 1.4rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .task-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .task-card p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .task-card .status,
+  .task-card .priority {
+    font-size: 0.85rem;
+  }
+
+  /* ✅ Make everything slightly centered */
+  main,
+  section {
+    padding: 0 1rem;
+  }
+
+  body {
+    background-color: #fafafa;
+  }
+}
+/* ==============================
+   📱 Mobile View (max-width: 600px)
+============================== */
+@media (max-width: 600px) {
+  header {
+    text-align: center;
+    padding: 1rem 0.8rem;
+  }
+
+  .topbar h1 {
+    font-size:30px;
+    /* margin-bottom: 0.4rem; */
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .topbar p {
+    font-size: 15px;
+    color: #6b7280;
+    /* margin-bottom: 1rem; */
+    line-height: 1.4;
+  }
+
+  /* ✅ Navbar - clean centered layout */
+  /* nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  nav ul li {
+    list-style: none;
+  }
+
+  nav ul li a {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 6px 4px;
+    border-radius: 6px;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  /* ✅ Underline effect for active tab */
+   /* nav ul li.active a {
+    color: #198754;
+  }
+
+  nav ul li.active a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 2px;
+  }  */
+
+/* nav ul li a:hover {
+    color: #198754;
+  }   */ */ */
+
+  /* ✅ Filters stacked vertically */
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch;
+    padding: 0.5rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-top: 1rem;
+  }
+
+  .filters select {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+
+  /* ✅ Search + Add Task aligned perfectly */
+  .task-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1.2rem 0;
+  }
+
+  .task-controls input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  /* ✅ Add Task button  */
+.task-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color:#54BD95;
+  color: #fff;
+  border: 2px solid #4CAF87;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: auto; /* not full width */
+  align-self: flex-end; /* align to right if inside flex container */
+  transition: all 0.3s ease;
+}
+
+.task-controls button:hover {
+  background-color: #43a375;
+  border-color: #43a375;
+}
+
+/* ✅ Optional: icon style inside the button */
+.task-controls button i {
+  font-size: 1rem;
+}
+
+
+  /* ✅ Task Cards */
+  .task-card {
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  .task-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .task-card p {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0.6rem;
+  }
+
+  .task-card .status,
+  .task-card .priority {
+    font-size: 0.8rem;
+  }
+
+  /* ✅ General layout */
+  main,
+  section {
+    padding: 0.8rem;
+  }
+
+  body {
+    background-color: #fafafa;
+    overflow-x: hidden;
+  }
+}
+/* ✅ For the theme icon — keep normal arrow cursor */
+#darkModeToggle {
+  cursor: default; /* Keeps the arrow cursor */
+}
+
+/* ✅ For the task cards — show hand cursor when hovered */
+.task-list {
+  cursor: pointer; /* Shows hand cursor */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Optional: add small animation when hovered */
+.task-list:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drag-icon {
+  font-size: 1.1rem;
+  color: #6b7280;
+  cursor: grab; /* shows grab hand cursor */
+  user-select: none;
+}
+
+.drag-icon:hover {
+  color: #333;
+}
+
+/* shows hand cursor when hovering over task cards */
+.task-card {
+  cursor: pointer;
+}
+
+/* shows arrow cursor for theme icon */
+.theme-toggle {
+  cursor: default;
+}
+#addTaskBtn{
+cursor: default;
+}
+
+/* 🌿 Floating Add Task Button (Option 2) */
+.floating-add-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1500;
+}
+
+.floating-add-btn:hover {
+  background: #009f7a;
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* 🌙 Dark Mode Support */
+body.dark-mode .floating-add-btn {
+  background: lightseagreen;
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .floating-add-btn:hover {
+  background: #20b2aa;
+}
+.badge-section {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  background-color: #4b7bec;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.custom-badge {
+  background: #e5e7eb;
+  color: #111;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dark-mode .custom-badge {
+  background: #333;
+  color: #eee;
+}
+.rule-badge:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+/* ===== Rule Badges ===== */
+.rule-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4f46e5, #6366f1); /* Elegant violet gradient */
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 4px 6px 0 0;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  transition: all 0.2s ease-in-out;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  cursor: default;
+}
+
+/* Subtle hover effect */
+.rule-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.5);
+}
+.rule-badge[data-type="urgent"] {
+  background: linear-gradient(135deg, #ef4444, #f87171); /* red */
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+}
+
+.rule-badge[data-type="completed"] {
+  background: linear-gradient(135deg, #10b981, #34d399); /* green */
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+}
+
+.rule-badge[data-type="pending"] {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24); /* yellow */
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+/* === Task Card Badge Alignment === */
+.task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+/* Container for priority/date/badges */
+.task-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-badge {
+  background: #4caf50;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 6px;
+  transition: all 0.3s ease;
+}
+/* ===== Navigation Bar - Exact Screenshot Match ===== */
+/* nav {
+  height: auto;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  gap: 32px;
+  align-items: center;
+}
+
+nav li {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+nav li a {
+  color: #374151;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 0;
+  transition: color 0.2s ease;
+  border-bottom: 2px solid transparent;
+} */
+
+/* nav li a i {
+  font-size: 15px;
+} */
+
+/* Hover Effect - Text color changes + underline appears */
+/* nav li:hover a {
+  color: #10b981;
+  border-bottom-color: #10b981;
+} */
+
+/* Active State - Green text + underline */
+/* nav li.active a {
+  color: #10b981;
+  border-bottom-color: #10b981;
+} */
+
+/* Dark Mode Navigation */
+body.dark-mode nav {
+  background-color: #121212;
+  border-bottom-color: #333;
+}
+
+body.dark-mode nav li a {
+  color: #9ca3af;
+}
+
+/* body.dark-mode nav li:hover a,
+body.dark-mode nav li.active a {
+  color: #10b981;
+  border-bottom-color: #10b981;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f8f9fb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Header & Navigation ===== */
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.topbar {
+  padding: 15px 20px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+
+
+/* ===== Main Content ===== */
+.content {
+  padding: 20px 30px;
+}
+
+/* ===== Rules + Search + Add Button ===== */
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.rules-title {
+  margin-right: auto;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-left: 25px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: 10px;
+  color: #777;
+  font-size: 15px;
+}
+
+/* .search-box input {
+  padding: 8px 12px 8px 32px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  width: 250px;
+  background: #fff;
+} */
+.search-box input {
+  padding: 8px 12px 8px 32px;
+  border: none;  /* ✅ Removed the border */
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  width: 250px;
+  background: #fff;
+}
+#addRuleBtn {
+  background-color:#54BD95;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#addRuleBtn:hover {
+  background-color:#54BD95;
+  transform: translateY(-1px);
+}
+
+#addRuleBtn i {
+  font-size: 16px;
+}
+
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  color: #777;
+  margin-top: 60px;
+}
+
+.empty-state i {
+  font-size: 30px;
+  color: #bbb;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ===== Modal Styling ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 10px;
+  width: 500px;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.subtext {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.condition-section,
+.action-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.condition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conditions-container .condition-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.condition-row select {
+  flex: 1;
+}
+
+.delete-condition {
+  color: #d33;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-condition {
+  background: none;
+  color: #25a18e;
+  border: none;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background: none;
+  color: #25a18e;
+  border: 1px solid #25a18e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: #25a18e;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#logicDropdown {
+  width: 80px;
+}
+
+/* ===== Rule Cards ===== */
+.rule-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 15px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.rule-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.rule-info h4 {
+  font-size: 16px;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.rule-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.rule-tag {
+  font-size: 12px;
+  background: #f1f1f1;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+}
+
+.rule-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rule-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn {
+  color: #e74c3c;
+}
+
+.edit-btn {
+  color: #2ecc71;
+}
+
+/* ===== Toggle Switch ===== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* .slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2ecc71;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+} */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.delete-modal {
+  background: #fff;
+  border-radius: 8px;
+  width: 360px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+.delete-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.delete-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-delete-modal {
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.delete-body {
+  padding: 20px 16px;
+  font-size: 15px;
+}
+
+.delete-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+}
+
+.cancel-delete,
+.confirm-delete {
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.cancel-delete {
+  background: transparent;
+  border: 1px solid #52b788;
+  color: #52b788;
+}
+
+.cancel-delete:hover {
+  background:#54BD95;
+  color: white;
+}
+
+.confirm-delete {
+  background: #54BD95;
+  border: none;
+  color: white;
+}
+
+.confirm-delete:hover {
+  background: #479e76;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* === Theme Toggle Button === */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background-color:white;
+  border: 1px solid #555;
+  color: #000;
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 999;
+  color: white;
+}
+
+.theme-toggle:hover {
+  background-color:white;
+  color: #fff;
+}
+
+/* === DARK MODE === */
+.theme-toggle{
+  background-color: black;
+  color: white;
+}
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Cards, Containers, Modals, etc */
+body.dark-mode .rule-card,
+body.dark-mode .modal,
+body.dark-mode .content-box,
+body.dark-mode .container {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/* Text Elements */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode span {
+  color: #fff;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode .add-btn,
+body.dark-mode .cancel-btn,
+body.dark-mode .save-btn {
+  background-color:#54BD95;
+  color: white;
+  border: 1px solid #fff;
+}
+
+/* Edit and Delete Icons */
+body.dark-mode .edit-icon {
+  color: lightseagreen !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Inputs and Selects */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/* On/Off Switch */
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: lightseagreen;
+}
+
+/* Smooth Transition */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === DARK MODE FOR RULES PAGE === */
+body.dark-mode,
+body.dark-mode .rules-section {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+body.dark-mode .rules-section h1,
+body.dark-mode .rules-section h2,
+body.dark-mode .rules-section h3,
+body.dark-mode .rules-section p,
+body.dark-mode .rules-section span,
+body.dark-mode .rules-section label {
+  color: #fff !important;
+}
+
+/* Cards, containers, and borders */
+body.dark-mode .rule-card,
+body.dark-mode .filter-box,
+body.dark-mode .rules-list,
+body.dark-mode .content-box {
+  background-color: #000 !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode .add-btn,
+body.dark-mode .edit-btn,
+body.dark-mode .cancel-btn,
+body.dark-mode .save-btn {
+  background-color:#54BD95 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Toggle switch (on/off button) */
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: lightseagreen !important;
+}
+
+/* Icons */
+body.dark-mode .edit-icon {
+  color: #54BD95 !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Smooth transition */
+body,
+.rules-section {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === Dark Mode Styling === */
+body.dark-mode {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* Header, content, and cards */
+body.dark-mode header,
+body.dark-mode main,
+body.dark-mode .content,
+body.dark-mode .rules-section,
+body.dark-mode .rule-card {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Text colors */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label {
+  color: #fff !important;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode #addRuleBtn {
+  background-color:#54BD95 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Edit and delete icons */
+body.dark-mode .edit-icon {
+  color:#54BD95 !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Toggle switches */
+body.dark-mode input[type="checkbox"]:checked + .slider {
+  background-color:#54BD95 !important;
+}
+
+/* Input and search boxes */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #111 !important;
+  color: #fff !important;
+  /* border: 1px solid #fff !important; */
+}
+
+/* Transition effect */
+body, .content, .rules-section {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === Light Mode (Default) === */
+body {
+  background-color: #fff;
+  color: #000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* 
+nav {
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover and active in light mode */
+/* nav a:hover,
+nav a.active { */
+  /* background-color: lightseagreen; */
+  /* color: #fff;
+}  */
+
+/* === Dark Mode === */
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Navbar dark */
+body.dark-mode nav {
+  background-color: #111;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+/* Nav links dark mode */
+body.dark-mode nav a {
+  color: #fff;
+}
+
+/* Hover effect for dark mode */
+body.dark-mode nav a:hover,
+body.dark-mode nav a.active {
+  /* background-color: lightseagreen; */
+  color: #fff;
+}
+
+/* === Buttons and Icons in Dark Mode === */
+body.dark-mode button,
+body.dark-mode .add-task-btn {
+  background-color: lightseagreen;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.dark-mode button:hover {
+  background-color: #20b2aa;
+}
+
+/* Delete and edit icon colors */
+body.dark-mode .delete-btn {
+  color: red !important;
+}
+
+body.dark-mode .edit-btn {
+  color: lightseagreen !important;
+}
+
+/* Toggle (on/off) button color */
+body.dark-mode input[type="checkbox"]:checked {
+  accent-color: lightseagreen;
+}
+/* nav {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+} */
+
+#themeToggle {
+  margin-left: 0; /* Remove any extra space */
+}
+
+
+body.dark-mode nav {
+  background-color: black;
+  color: white;
+}
+
+body.dark-mode i {
+  color:white;
+}
+/* Default (light mode) */
+#themeToggle i {
+  color: black;
+}
+
+/* When dark mode is active */
+body.dark-mode #themeToggle {
+  background-color: lightseagreen;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white; /* Icon turns white */
+}
+#themeToggle:hover i {
+  color: white;
+}
+#themeToggle {
+  background-color: lightseagreen;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#themeToggle i {
+  color: white; /* Always white icon */
+  font-size: 20px;
+}
+
+/* Dark mode adjustments */
+body.dark-mode #themeToggle {
+  background-color:black;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white; /* Keep it white in dark mode */
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+#themeToggle {
+  background-color: black !important; /* Always black background */
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: 0;
+}
+
+#themeToggle i {
+  color: white !important; /* Always white icon */
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+#themeToggle:hover {
+  background-color: black !important;
+}
+
+#themeToggle:hover i {
+  color: white !important;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+body.dark-mode nav {
+  background-color: #000;
+  color: white;
+  border-bottom: 1px solid #fff;
+}
+
+body.dark-mode nav a {
+  color: #fff;
+}
+
+body.dark-mode nav a:hover,
+body.dark-mode nav a.active {
+  /* background-color: lightseagreen; */
+  color: #fff;
+}
+
+body.dark-mode #themeToggle {
+  background-color: black !important;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white !important;
+}
+
+/* Smooth transition */
+body, nav, #themeToggle {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === THEME TOGGLE === */
+.theme-toggle {
+  background-color: black; /* stays black in both modes */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* icon color — always white */
+.theme-toggle i {
+  color: white !important;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+/* hover effect */
+.theme-toggle:hover {
+  background-color: lightseagreen;
+}
+
+/* === DARK MODE === */
+body.dark-mode .theme-toggle {
+  background-color: black;
+}
+
+body.dark-mode .theme-toggle i {
+  color: white !important;
+}
+/* === DELETE BUTTON === */
+.delete-btn {
+  
+  border: 1px solid #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn i {
+  color: black; /* default color in light mode */
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* === Dark mode: red delete icon === */
+body.dark-mode .delete-btn i {
+  color: red !important;
+}
+
+/* Optional hover effect */
+.delete-btn:hover {
+  background-color: #fff;
+}
+/* === DELETE & EDIT BUTTONS === */
+.delete-btn,
+.edit-btn {
+  background: transparent; /* no background */
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 6px;
+  transition: color 0.3s ease;
+}
+
+/* Light mode */
+.delete-btn i {
+  color: black;
+}
+.edit-btn i {
+  color: black;
+}
+
+/* Dark mode */
+body.dark-mode .delete-btn i {
+  color: red;
+}
+body.dark-mode .edit-btn i {
+  color: lightgreen;
+}
+
+/* Optional: hover effect */
+.delete-btn:hover i {
+  color: red;
+  transform: scale(1.1);
+}
+.edit-btn:hover i {
+  color: lightgreen;
+  transform: scale(1.1);
+}
+/* === DELETE & EDIT BUTTONS === */
+.delete-btn,
+.edit-btn {
+  background: transparent; /* no background */
+  border: none;            /* no border */
+  cursor: pointer;
+  font-size: 20px;
+  padding: 6px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Light mode */
+.delete-btn i {
+  color: black;
+}
+.edit-btn i {
+  color: black;
+}
+
+/* Dark mode */
+body.dark-mode .delete-btn i {
+  color: red;
+}
+body.dark-mode .edit-btn i {
+  color: lightgreen;
+}
+
+/* Optional: hover effects */
+.delete-btn:hover i {
+  color: red;
+  transform: scale(1.1);
+}
+.edit-btn:hover i {
+  color: lightseagreen;
+  transform: scale(1.1);
+}
+/* =========================
+   FORCE Dark Modal Styles
+   (Place at the END of rules.css)
+   ========================= */
+
+/* When dark mode is active on <body> (body.dark-mode) apply strong rules */
+body.dark-mode .modal,
+body.dark-mode .modal * {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  box-shadow: none !important;
+}
+
+/* Modal container border and rounding */
+body.dark-mode .modal {
+  border: 1px solid #ffffff !important;
+  background-clip: padding-box !important;
+}
+
+/* Headings and description text */
+body.dark-mode .modal-header h3,
+body.dark-mode .subtext {
+  color: #ffffff !important;
+}
+
+/* Inputs, selects, textareas - black BG, white text, white border */
+body.dark-mode .modal input,
+body.dark-mode .modal textarea,
+body.dark-mode .modal select,
+body.dark-mode .modal .search-box input {
+  background-color: #0d0d0d !important;   /* slightly off-black for inputs */
+  color: #ffffff !important;
+  /* border: 1px solid #ffffff !important; */
+  box-shadow: none !important;
+}
+
+/* Make placeholder text a bit lighter but visible */
+body.dark-mode .modal input::placeholder,
+body.dark-mode .modal textarea::placeholder {
+  color: #bfbfbf !important;
+}
+
+/* Condition & action panel (the white rounded boxes in light mode) */
+body.dark-mode .condition-section,
+body.dark-mode .action-section,
+body.dark-mode .conditions-container,
+body.dark-mode .conditions-container .condition-row {
+  background-color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* If you have inner "panel" wrappers that were white in light mode */
+body.dark-mode .modal .panel,
+body.dark-mode .modal .panel * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Individual dropdown styling to look consistent */
+body.dark-mode .modal select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  padding-left: 14px !important;
+}
+
+/* Add/Cancel/Submit buttons in modal */
+body.dark-mode .modal .cancel-btn,
+body.dark-mode .modal .submit-btn,
+body.dark-mode .modal button {
+  background-color: #20b2aa !important; /* lightseagreen */
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Make the close icon square teal but with white X (if you want) */
+body.dark-mode .modal .close-btn {
+  background-color: #18a98f !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Ensure delete/edit icons inside modal and on cards are visible:
+   delete icon red, edit icon lightseagreen (strong override) */
+body.dark-mode .delete-btn,
+body.dark-mode .delete-icon,
+body.dark-mode .rule-actions .delete-btn i,
+body.dark-mode .rule-actions .delete-icon {
+  color: #ff4d4d !important; /* red */
+  background: transparent !important;
+  border: 0 !important;
+}
+
+body.dark-mode .edit-btn,
+body.dark-mode .edit-icon,
+body.dark-mode .rule-actions .edit-btn i,
+body.dark-mode .rule-actions .edit-icon {
+  color: #20b2aa !important; /* lightseagreen */
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Remove any square teal backgrounds that were applied to icon containers */
+body.dark-mode .rule-actions button,
+body.dark-mode .rule-actions .icon-button {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Toggle (on/off) slider - make ON color lightseagreen */
+body.dark-mode .switch .slider {
+  background-color: #444 !important;
+}
+body.dark-mode .switch input:checked + .slider {
+  background-color: #20b2aa !important;
+}
+
+/* Ensure high contrast outlines everywhere for forms */
+body.dark-mode .modal input:focus,
+body.dark-mode .modal textarea:focus,
+body.dark-mode .modal select:focus {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 0px !important;
+}
+
+/* Force modal overlay to still darken background */
+body.dark-mode .modal-overlay {
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* If some internal white boxes remain, forcibly recolor them (catch-all) */
+body.dark-mode .modal [style*="background"] {
+  background-color: #000000 !important;
+}
+
+/* Smooth transition (optional) */
+body.dark-mode .modal,
+body.dark-mode .modal * {
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+/* === Delete Modal Dark Mode === */
+body.dark-mode .delete-modal {
+  background-color: #111;        /* black modal */
+  color: #fff;                   /* white text */
+  border: 1px solid #333;        /* subtle border */
+}
+
+/* Dark mode header and footer */
+body.dark-mode .delete-modal .delete-header {
+  border-bottom: 1px solid #333;
+}
+
+body.dark-mode .delete-modal .delete-footer {
+  border-top: 1px solid #333;
+}
+
+/* Buttons remain same color */
+.delete-modal .delete-footer button.cancel-delete,
+.delete-modal .delete-footer button.confirm-delete {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+/* Close “X” icon color in dark mode */
+body.dark-mode .delete-modal .close-delete-modal {
+  color: #fff;
+}
+/* === Tablet (Portrait & Landscape) === */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+  /* Header alignment */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Filter and Sort section */
+  .filters-container,
+  .sort-container {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .filters-container select,
+  .sort-container select {
+    width: 48%;
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+
+  /* Search and Add rules section */
+  .search-add-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+
+  .search-add-container input[type="text"] {
+    width: 70%;
+    font-size: 1rem;
+  }
+
+  .search-add-container .add-rule-btn {
+    width: 25%;
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+.search-box input {
+  border: none;              /* ✅ removes input border */
+  background: transparent;
+  outline: none;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+}
+  /* Rule Cards */
+  .rule-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .rule-card .rule-info h4 {
+    font-size: 1.05rem;
+  }
+
+  .rule-card .rule-info p {
+    font-size: 0.9rem;
+  }
+
+  .rule-card .rule-actions {
+    align-self: flex-end;
+    display: flex;
+    gap: 8px;
+  }
+
+  .rule-card .rule-actions button {
+    font-size: 1rem;
+    padding: 6px 8px;
+  }
+
+  /* Modal Responsiveness */
+  .delete-modal {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .delete-modal .delete-footer button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* Adjust typography */
+  .rules-section h2,
+  .filters-title {
+    font-size: 1.1rem;
+  }
+}
+/* =========================
+   Mobile Responsive Styles
+   ========================= */
+@media (max-width: 768px) {
+  /* Overall layout */
+  body {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .filters-container select,
+  .filters-container .filter-group {
+    width: 100%;
+  }
+
+  /* Sort section */
+  .sort-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  /* Search bar */
+  .search-bar {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  /* Add Rule button */
+  .add-rule-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  /* Rule cards */
+  .rule-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .rule-card h4 {
+    font-size: 1rem;
+  }
+
+  .rule-card p {
+    font-size: 0.9rem;
+  }
+
+  /* Buttons inside rule card */
+  .rule-card .actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Toggle */
+  .toggle-switch {
+    transform: scale(0.9);
+  }
+
+  /* Rule tag (Task / Habit) */
+  .rule-tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Dashboard navbar */
+  /* nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  nav a {
+    flex: 1 1 45%;
+    padding: 10px;
+    font-size: 0.9rem;
+  } */
+
+  /* Reduce padding for cards */
+  .card, .rule-card {
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  /* Adjust heading */
+  .section-title {
+    text-align: center;
+  }
+}
+
+/* Even smaller screens (phones under 480px) */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .rule-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .rule-card p {
+    font-size: 0.85rem;
+  }
+
+  .add-rule-btn {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+/* Toast Container */
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Toast Box */
+.toast {
+  display: flex;
+  align-items: center;
+  background-color: #e6f4ea;
+  color: #000;
+  padding: 14px 18px;
+  border-radius: 8px;
+  min-width: 300px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.4s ease, fadeOut 0.4s ease 3s forwards;
+}
+
+/* Green bar on left */
+.toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: #34a853;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* Emoji/Icon */
+.toast .icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Close Button */
+.toast .close-btn {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+/* Light Mode */
+.rule-tag {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Dark Mode */
+body.dark-mode .rule-tag {
+  background-color: #333;
+  color: #fff;
+}
+/* === DARK MODE === */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark header,
+body.dark nav ul,
+body.dark .modal {
+  background-color: #1e1e1e;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-color: #444;
+}
+
+body.dark .rule-card {
+  background: #1f1f1f;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark .rule-badge {
+  background-color: #007bff !important;
+  color: #fff;
+}
+
+body.dark .theme-toggle i {
+  color: #fff;
+}
+
+body.dark .empty-state p {
+  color: #ccc;
+}
+
+body.dark .modal {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.theme-toggle i {
+  transition: color 0.3s;
+}
+/* ===== Base layout ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: #ffffff;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  background-color: #f0f0f0;
+  color: #222;
+  padding: 1rem;
+  position: relative;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size:30px;
+}
+.topbar p{
+  font-size: 15px;
+}
+/* nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 1rem 0 0;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+
+nav li.active a {
+  color: #007bff;
+} */
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #444;
+}
+
+/* ===== Main content ===== */
+main {
+  padding: 1.5rem;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rules-title {
+  margin: 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+}
+
+#addRuleBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+#addRuleBtn:hover {
+  background-color: #0056b3;
+}
+
+/* ===== Empty state ===== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #777;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn,
+.submit-btn {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #ccc;
+}
+
+.submit-btn {
+  background: #007bff;
+  color: white;
+}
+
+/* ===== Toast ===== */
+#toastContainer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1100;
+}
+
+/* ========================
+   DARK MODE STYLES
+======================== */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark-mode header {
+  background-color: #1c1c1c;
+  color: #f5f5f5;
+}
+
+body.dark-mode nav a {
+  color: #e0e0e0;
+}
+
+body.dark-mode nav li.active a {
+  color: #66b3ff;
+}
+
+body.dark-mode .theme-toggle {
+  color: #f5f5f5;
+}
+
+
+
+body.dark-mode #addRuleBtn {
+  background-color: #2196f3;
+}
+
+body.dark-mode .empty-state {
+  color: #ccc;
+}
+
+body.dark-mode .empty-state i {
+  color: #bbb;
+}
+
+body.dark-mode .modal {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .cancel-btn {
+  background: #555;
+  color: #fff;
+}
+
+body.dark-mode .submit-btn {
+  background: #2196f3;
+  color: #fff;
+}
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* NEW — align title on left, search + button on right */
+.rules-title {
+  margin: 0;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  margin-left: auto; /* moves it to the right */
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+#addRuleBtn {
+  background-color:#54BD95;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin-left: 0.5rem; /* small space between search box & button */
+}
+@media (max-width: 600px) {
+  .search-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-box,
+  #addRuleBtn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--search-bg, #f1f1f1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  border: none;              /* ✅ removes the outer border */
+  box-shadow: none;          /* ✅ prevents any shadow line */
+  outline: none;
+  margin-left: auto;
+}
+
+.search-box input {
+  border: none;              /* ✅ removes input border */
+  background: transparent;
+  outline: none;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: var(--icon-color, #555);
+}
+body.dark-mode {
+  --search-bg: #222;        /* darker background */
+  --text-color: #ddd;
+  --icon-color: #ccc;
+}
+.rule-item {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px 0;
+  transition: border-color 0.3s ease;
+}
+
+.rule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.condition-badge {
+  display: inline-block;
+  background: #f4f4f4;
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: 4px;
+  font-size: 0.85rem;
+}
+
+.delete-rule {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border-radius: 25px;
+  padding: 6px 12px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 160px;
+}
+body.dark-mode .search-bar {
+  background-color: #1a1a1a;
+  /* border: 1px solid #333; */
+  border: none;
+}
+.search-bar input{
+  border: none;
+}
+/* 🌤️ Default (Light Mode) Navigation */
+nav {
+  /* border-bottom: 1px solid #e5e7eb; */
+  /* background: #fff; */
+  padding: 0;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 16px 20px;
+  transition: color 0.3s ease, background 0.3s ease;
+  position: relative;
+}
+
+nav ul li a i {
+  margin-right: 3px;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+nav ul li a:hover {
+  color: #10b981;
+  background-color: transparent;
+}
+
+nav ul li a:hover i {
+  color: #10b981;
+}
+
+/* Active link */
+nav ul li.active a {
+  color: #10b981;
+}
+
+/* Underline animations */
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #10b981;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover::after,
+nav ul li.active a::after {
+  transform: scaleX(1);
+}
+
+/* 🌙 Dark Mode */
+body.dark-mode nav {
+  background: #111;
+  border-bottom: 1px solid #2a2a2a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode nav ul li a {
+  color: #b0b0b0;
+}
+
+body.dark-mode nav ul li a i {
+  color: #aaa;
+}
+
+body.dark-mode nav ul li a:hover {
+  color: #10b981;
+}
+
+body.dark-mode nav ul li a:hover i {
+  color: #10b981;
+}
+
+body.dark-mode nav ul li.active a {
+  color: #10b981;
+}
+
+body.dark-mode nav ul li a::after {
+  background-color: #10b981;
+}
+
+/* Optional subtle glow on active/hover in dark mode */
+body.dark-mode nav ul li.active a,
+body.dark-mode nav ul li a:hover {
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.clear-filter-btn {
+      background: transparent;
+      border: none;
+      color: #20b2aa;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .clear-filter-btn:hover {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+    
+    .dark-mode .clear-filter-btn:hover {
+      background: rgba(32, 178, 170, 0.1);
+      color: #20b2aa;
+    }
+    
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: white;
+      border-radius: 8px;
+      margin: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .filters-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .sort-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav li img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  filter: grayscale(100%) brightness(0.3); /* make inactive icons gray */
+  transition: filter 0.3s ease;
+  vertical-align: middle;
+}
+nav li:hover img {
+  filter: invert(59%) sepia(82%) saturate(409%) hue-rotate(118deg) brightness(92%) contrast(90%);
+}
+nav li.active img {
+  filter: invert(59%) sepia(82%) saturate(409%) hue-rotate(118deg) brightness(92%) contrast(90%);
+}
+.sort-section img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(35%) sepia(80%) saturate(500%) hue-rotate(180deg);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+  margin-left: none;
+  filter: grayscale(100%) brightness(0.5);
+}
+
+.filters-section img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.5);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.filters-section label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  margin-left: none;
+}
+.add-task {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background:#54BD95; /* nice green accent */
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  background-color: #54BD95;
+}
+
+.add-task:hover {
+  background:#54BD95;
+  box-shadow: 0 5px 12px rgba(76, 175, 80, 0.4);
+  transform: translateY(-2px);
+}
+
+.add-task:active {
+  transform: scale(0.98);
+}
+
+.add-task img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* make icon white */
+  transition: transform 0.3s ease;
+}
+
+/* ===== THEME TOGGLE BUTTON - White Background ===== */
+#themeToggle {
+  background-color: white !important; /* White background in light mode */
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease;
+  margin-left: 0;
+}
+
+#themeToggle i {
+  color: #333 !important; /* Dark icon color in light mode */
+  font-size: 20px;
+  transition: none; /* Remove transition to prevent color change */
+}
+
+#themeToggle:hover {
+  background-color: white !important; /* Keep white on hover */
+  border-color: #999;
+}
+
+#themeToggle:hover i {
+  color: #333 !important; /* Keep icon color same on hover */
+}
+
+/* Dark Mode Theme Toggle - No Background */
+body.dark-mode #themeToggle {
+  background-color: transparent !important; /* No background in dark mode */
+  border: none !important; /* No border in dark mode */
+}
+
+body.dark-mode #themeToggle i {
+  color: white !important; /* White sun icon in dark mode */
+}
+
+body.dark-mode #themeToggle:hover {
+  background-color: transparent !important; /* Keep transparent on hover */
+}
+
+body.dark-mode #themeToggle:hover i {
+  color: white !important; /* Keep sun white on hover in dark mode */
+}
+
+/* ===== SUBMIT BUTTONS IN MODALS - Updated Color ===== */
+.submit-btn {
+  background: #70BB98 !important; /* Changed from #2bc48a to #70BB98 */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #5fa885 !important; /* Slightly darker on hover */
+}
+
+/* Add Task Modal Submit Button */
+.modal-buttons .submit-btn {
+  background: #70BB98 !important;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-buttons .submit-btn:hover {
+  background: #5fa885 !important;
+}
+
+/* ===== DELETE CONFIRMATION BUTTON - Updated Color ===== */
+.delete-btn,
+.confirm-delete {
+  background: #70BB98 !important; /* Changed to #70BB98 */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover,
+.confirm-delete:hover {
+  background: #5fa885 !important; /* Slightly darker on hover */
+}
+
+/* Delete Modal Confirm Button */
+.delete-footer .confirm-delete {
+  background: #70BB98 !important;
+  border: none;
+  color: white;
+}
+
+.delete-footer .confirm-delete:hover {
+  background: #5fa885 !important;
+}
+
+/* ===== DARK MODE ADJUSTMENTS ===== */
+body.dark-mode .submit-btn {
+  background-color: #70BB98 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+body.dark-mode .delete-btn,
+body.dark-mode .confirm-delete {
+  background: #70BB98 !important;
+  color: #fff !important;
+}
+
+body.dark-mode .modal .submit-btn,
+body.dark-mode .edit-modal .submit-btn {
+  background-color: #70BB98 !important;
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode .modal .submit-btn:hover,
+body.dark-mode .edit-modal .submit-btn:hover {
+  background-color: #5fa885 !important;
+}
+
+/* ===== ADD RULE BUTTON (Rules Page) ===== */
+#addRuleBtn {
+  background-color:#54BD95 !important; /* Changed from #3ba776 */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#addRuleBtn:hover {
+  background-color: #5fa885 !important;
+  transform: translateY(-1px);
+}
+
+/* ===== ADD TASK BUTTON ===== */
+.add-task {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background:#54BD95 !important; /* Changed from #54BD95 */
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(112, 187, 152, 0.3);
+  transition: all 0.3s ease;
+}
+
+.add-task:hover {
+  background: #54BD95 !important;
+  box-shadow: 0 5px 12px rgba(112, 187, 152, 0.4);
+  transform: translateY(-2px);
+}
+
+.add-task:active {
+  transform: scale(0.98);
+}
+
+/* ===== THEME TOGGLE (Alternative Styles) ===== */
+.theme-toggle {
+  background-color: white !important; /* White background in light mode */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle i {
+  color: #333 !important; /* Dark icon in light mode */
+  font-size: 18px;
+  transition: none;
+}
+
+.theme-toggle:hover {
+  background-color: white !important;
+  border-color: #999;
+}
+
+body.dark-mode .theme-toggle {
+  background-color: transparent !important; /* No background in dark mode */
+  border: 1px solid #D4D4D4 !important;
+}
+
+body.dark-mode .theme-toggle:hover {
+  background-color: transparent !important;
+  border: 1px solid #D4D4D4 !important;
+}
+
+body.dark-mode .theme-toggle i {
+  color: white !important; /* White icon in dark mode */
+}
+
+body.dark-mode .theme-toggle:hover i {
+  color: white !important; /* Keep white on hover */
+}
+
+/* ===== DARK MODE TOGGLE WITH IMAGES ===== */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  z-index: 2000;
+  background-color: white !important; /* White background in light mode */
+}
+
+.dark-mode-toggle:hover {
+  background: white !important;
+  border-color: #999;
+}
+
+body.dark-mode .dark-mode-toggle {
+  background-color: transparent !important; /* No background in dark mode */
+  border: 1px solid #D4D4D4 !important;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: transparent !important;
+  border: 1px solid #D4D4D4 !important;
+}
+
+/* ===== ADDITIONAL BUTTONS WITH UPDATED COLOR ===== */
+body.dark-mode button,
+body.dark-mode .add-btn,
+body.dark-mode .cancel-btn:not(.cancel-delete),
+body.dark-mode .save-btn {
+  background-color: #70BB98 !important;
+  color: white;
+  border: 1px solid #fff;
+}
+
+body.dark-mode button:hover {
+  background-color: #5fa885 !important;
+}
+/* Dark mode navigation icons - WHITE except active */
+body.dark-mode nav li img {
+  filter: brightness(0) invert(1); /* Make icons white */
+}
+
+body.dark-mode nav li:hover img {
+  filter: brightness(0) invert(1); /* Keep white on hover */
+}
+
+body.dark-mode nav li.active img {
+  filter: invert(68%) sepia(56%) saturate(566%) hue-rotate(115deg) brightness(91%) contrast(101%); /* Active stays teal/green */
+}
+.priority img,
+.priority svg {
+  filter: brightness(0) invert(1); /* Makes flag white */
+}
+/* Remove extra padding from task page */
+.task-page {
+  padding: 20px 30px; /* Reduced from 30px */
+}
+
+/* Task card - tighter spacing */
+.task-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px; /* Reduced from 20px */
+  margin: 12px auto; /* Reduced from 15px */
+  width: 1380px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Filter bar - reduced spacing */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 10px 20px; /* Reduced from 12px 20px */
+  width: 1450px;
+  margin: 15px auto; /* Reduced from 20px */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+}
+
+/* Task actions - reduced gap */
+.task-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto 15px; /* Reduced from 20px */
+}
+
+/* Priority badge - no extra padding */
+.priority {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+}
+
+.priority img,
+.priority svg {
+  filter: brightness(0) invert(1);
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+
+/* Subtasks container - tighter spacing */
+.subtasks-container {
+  margin-top: 8px; /* Reduced from 10px */
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 8px; /* Reduced from 10px */
+}
+
+/* Status dropdown - reduced padding */
+.status-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 8px; /* Reduced from 5px 8px */
+  font-size: 0.9rem;
+  outline: none;
+}
+
+/* Task header spacing */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px; /* Reduced spacing */
+}
+
+/* Task title */
+.task-card h3 {
+  margin: 0 0 6px 0; /* Reduced from default */
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+/* Task description */
+.task-card p {
+  margin: 4px 0 8px 0; /* Reduced spacing */
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Meta info (priority, date, status) */
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.task-badge {
+  background: lightgrey;
+  color: black;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 6px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+.drag-icon {
+  font-size: 1.1rem;
+  color: #6b7280;
+  cursor: grab; /* shows grab hand cursor */
+  user-select: none;
+  margin-right: 12px; /* gap between drag icon and title */
+}
+
+.drag-icon:hover {
+  color: #333;
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* === Drag Icon with Gap === */
+.drag-icon {
+  font-size: 1.1rem;
+  color: #6b7280;
+  cursor: grab;
+  user-select: none;
+  margin-right: 12px; /* gap between drag icon and title */
+}
+
+.drag-icon:hover {
+  color: #333;
+}
+
+.drag-icon:active {
+  cursor: grabbing;
+}
+
+/* === Task Header - Single Line Title === */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.task-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  min-width: 0; /* Important for text-overflow to work */
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: help; /* Show that tooltip is available */
+}
+
+/* Tooltip for full title on hover */
+.task-title:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  white-space: normal;
+  max-width: 300px;
+  z-index: 1000;
+  margin-top: 30px;
+  left: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  word-wrap: break-word;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0; /* Prevent icons from shrinking */
+}
+
+.task-actions i,
+.task-actions img {
+  cursor: pointer;
+  font-size: 1rem;
+  color: #555;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.task-actions i:hover,
+.task-actions img:hover {
+  color: lightseagreen;
+  transform: scale(1.1);
+}
+
+.task-actions img:focus {
+  outline: 2px solid lightseagreen;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* === Toast Notification === */
+.toast {
+  visibility: visible;
+  min-width: 350px;
+  max-width: 500px;
+  background-color: #d1f0e1;
+  color: #000;
+  text-align: left;
+  border-radius: 8px;
+  padding: 16px 20px;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 8px solid #4cb17c;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  font-family: "Quicksand", sans-serif;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  transform: translateX(400px);
+  pointer-events: all;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#toastMessage {
+  flex: 1;
+  margin-right: 10px;
+  line-height: 1.4;
+}
+
+.toast-close {
+  margin-left: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #444;
+  font-weight: bold;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  color: #000;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Dark mode toast */
+body.dark-mode .toast {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-left-color: lightseagreen;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .toast-close {
+  color: #ccc;
+}
+
+body.dark-mode .toast-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .task-title:hover::after {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* === Task Badge === */
+.task-badge {
+  background: lightgrey;
+  color: black;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 6px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+/* === Keyboard Focus Styles === */
+.icon-svg:focus,
+button:focus,
+select:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid lightseagreen;
+  outline-offset: 2px;
+}
+
+/* === Task Card === */
+.task-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px auto;
+  width: 1380px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.task-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.task-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+/* === Description === */
+.desc {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 6px 0 10px 0;
+}
+
+/* === Task Meta === */
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.due {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* === Status Dropdown === */
+.status-dropdown {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.status-dropdown:hover {
+  border-color: lightseagreen;
+}
+
+.status-dropdown:focus {
+  border-color: lightseagreen;
+  outline: 2px solid rgba(32, 178, 170, 0.2);
+}
+
+/* === Subtasks === */
+.subtasks-container {
+  margin-top: 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.subtask-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.2s ease;
+}
+
+.subtask-header:hover {
+  color: lightseagreen;
+}
+
+.subtask-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.subtask-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  gap: 8px;
+}
+
+.subtask-list input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.subtask-list span {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.subtask-list span.done {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.add-subtask {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.add-subtask input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.add-subtask input:focus {
+  border-color: lightseagreen;
+}
+
+.add-subtask-btn {
+  background: lightseagreen;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-subtask-btn:hover {
+  background: #20b2aa;
+}
+
+/* === Dark Mode Adjustments === */
+body.dark-mode .task-card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  color: #fff;
+}
+
+body.dark-mode .task-title {
+  color: #fff;
+}
+
+body.dark-mode .desc {
+  color: #ccc;
+}
+
+body.dark-mode .due {
+  color: #ccc;
+}
+
+body.dark-mode .status-dropdown {
+  background: #2a2a2a;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode .subtasks-container {
+  background: #252525;
+}
+
+body.dark-mode .subtask-header {
+  color: #fff;
+}
+
+body.dark-mode .subtask-list span {
+  color: #ddd;
+}
+
+body.dark-mode .add-subtask input {
+  background: #2a2a2a;
+  color: #fff;
+  border-color: #555;
+}
+
+/* === Responsive Design === */
+@media (max-width: 1400px) {
+  .task-card {
+    width: 95%;
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-card {
+    width: 100%;
+    padding: 12px;
+  }
+  
+  .task-header {
+    flex-wrap: wrap;
+  }
+  
+  .task-actions {
+    gap: 10px;
+  }
+  
+  .task-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .toast {
+    min-width: 280px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
+
+/* === Additional Accessibility === */
+*:focus-visible {
+  outline: 2px solid lightseagreen;
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* === Smooth Transitions === */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+/* === Search Box - Light Grey Transparent === */
+.search-box {
+  position: relative;
+  display: inline-block;
+  border: 1px solid rgba(200, 200, 200, 0.6); /* Soft border */
+  border-radius: 30px;
+  padding: 5px;
+  background: rgba(240, 240, 240, 0.3); /* Light grey transparent background */
+  transition: none;
+  backdrop-filter: blur(6px); /* Optional: subtle blur for glass effect */
+}
+
+.search-box i,
+.search-box img {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1rem;
+  transition: none;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 10px 15px 10px 40px;
+  border-radius: 25px;
+  background: transparent;
+  color: #333;
+  font-size: 1rem;
+  width: 250px;
+  transition: none;
+  box-shadow: none; /* Remove inner shadow in all modes */
+  -webkit-appearance: none; /* Remove browser default styles */
+}
+
+.search-box input::placeholder {
+  color: #777;
+}
+
+/* Remove hover effects */
+.search-box:hover {
+  border-color: rgba(200, 200, 200, 0.6);
+  background: rgba(240, 240, 240, 0.3);
+}
+
+.search-box input:hover {
+  background: transparent;
+}
+
+.search-box:hover i {
+  color: #666;
+}
+
+.search-box input:focus {
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-box input:focus + i {
+  color: #666;
+}
+
+@media (max-width: 600px) {
+  .search-box input {
+    width: 180px;
+    font-size: 0.9rem;
+  }
+}
+
+/* === Dark Mode === */
+body.dark-mode .search-box {
+  background: rgba(50, 50, 50, 0.3);
+  border: 1px solid rgba(100, 100, 100, 0.6);
+}
+
+body.dark-mode .search-box input {
+  color: #eee;
+  background: transparent !important; /* Ensure no dark box */
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .search-box i {
+  color: #aaa;
+}
+
+body.dark-mode .search-box:hover {
+  background: rgba(50, 50, 50, 0.3);
+}
+/* === PRIORITY BADGES - FORCE COLORS IN BOTH MODES === */
+.priority {
+  background-color: inherit !important;
+  border: none !important;
+}
+
+/* High Priority - Red */
+body .priority[style*="#D4183D"],
+body.dark-mode .priority[style*="#D4183D"] {
+  background: #D4183D !important;
+}
+
+body .priority[style*="#D4183D"] span,
+body.dark-mode .priority[style*="#D4183D"] span {
+  color: #FFFFFF !important;
+}
+
+/* Medium Priority - Orange */
+body .priority[style*="#D78905"],
+body.dark-mode .priority[style*="#D78905"] {
+  background: #D78905 !important;
+}
+
+body .priority[style*="#D78905"] span,
+body.dark-mode .priority[style*="#D78905"] span {
+  color: #FFFFFF !important;
+}
+
+/* Low Priority - Blue */
+body .priority[style*="#3B82F6"],
+body.dark-mode .priority[style*="#3B82F6"] {
+  background: #3B82F6 !important;
+}
+
+body .priority[style*="#3B82F6"] span,
+body.dark-mode .priority[style*="#3B82F6"] span {
+  color: #FFFFFF !important;
+}
+
+/* Priority flag icon - always white */
+body .priority img,
+body .priority svg,
+body.dark-mode .priority img,
+body.dark-mode .priority svg {
+  filter: brightness(0) invert(1) !important;
+}
+/* Dark mode navigation icons - WHITE except active */
+body.dark-mode nav li img {
+  filter: brightness(0) invert(1); /* Make icons white */
+}
+
+body.dark-mode nav li:hover img {
+  filter: brightness(0) invert(1); /* Keep white on hover */
+}
+
+body.dark-mode nav li.active img {
+  filter: invert(68%) sepia(56%) saturate(566%) hue-rotate(115deg) brightness(91%) contrast(101%); /* Active stays teal/green */
+}
+
+/* Dark mode filter and sort icons - WHITE */
+body.dark-mode .filters-section img,
+body.dark-mode .sort-section img {
+  filter: brightness(0) invert(1) !important; /* Make icons white */
+}
+
+body.dark-mode .filters-section img:hover,
+body.dark-mode .sort-section img:hover {
+  filter: brightness(0) invert(1) !important; /* Keep white on hover */
+}
+/* =====================================================
+   TASKS PAGE RESPONSIVE STYLES
+   ===================================================== */
+
+/* === LARGE TABLETS & SMALL LAPTOPS (769px - 1024px) === */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .topbar {
+    padding: 15px 30px;
+  }
+
+  .topbar h1 {
+    font-size: 28px;
+  }
+
+  .topbar p {
+    font-size: 14px;
+  }
+
+  /* Navigation - FIT WITHOUT SCROLL */
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    gap: 8px;
+    padding: 10px 15px;
+    width: 100%;
+  }
+
+  nav ul li {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  nav ul li a {
+    font-size: 13px;
+    padding: 10px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
+  nav li img {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* Task page */
+  .task-page {
+    padding: 25px 20px;
+  }
+
+  /* Task actions (search + add button) */
+  .task-actions {
+    width: 95%;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .action-group {
+    gap: 12px;
+  }
+
+  .search-box input {
+    width: 220px;
+    font-size: 0.95rem;
+  }
+
+  .add-task {
+    padding: 9px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    width: 95%;
+    padding: 10px 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .filters-section,
+  .sort-section {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-bar select {
+    font-size: 0.85rem;
+    padding: 5px 8px;
+  }
+
+  /* Task cards */
+  .task-card {
+    width: 95%;
+    max-width: 900px;
+    padding: 18px;
+    margin: 12px auto;
+  }
+
+  .task-card h3 {
+    font-size: 1rem;
+  }
+
+  .task-card p {
+    font-size: 0.85rem;
+  }
+
+  .task-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Modal */
+  .modal {
+    width: 85%;
+    max-width: 700px;
+    padding: 30px 40px;
+  }
+
+  .modal input,
+  .modal textarea,
+  .modal select {
+    font-size: 0.9rem;
+  }
+
+  /* Delete modal */
+  .delete-modal {
+    width: 80%;
+    max-width: 420px;
+  }
+
+  /* Toast notification */
+  .toast {
+    min-width: 320px;
+    right: 15px;
+    top: 70px;
+  }
+}
+
+/* === TABLETS (481px - 768px) === */
+@media (max-width: 768px) and (min-width: 481px) {
+  .topbar {
+    padding: 12px 20px;
+    text-align: center;
+  }
+
+  .topbar h1 {
+    font-size: 26px;
+  }
+
+  .topbar p {
+    font-size: 13px;
+  }
+
+  /* Theme toggle */
+  .theme-toggle,
+  .dark-mode-toggle,
+  #themeToggle {
+    top: 15px;
+    right: 15px;
+    height: 40px;
+    width: 40px;
+    padding: 8px;
+  }
+
+  /* Navigation - FIT WITHOUT SCROLL */
+  nav {
+    overflow: visible;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 10px;
+    margin: 0;
+    width: 100%;
+  }
+
+  nav ul li {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  nav ul li a {
+    font-size: 12px;
+    padding: 8px 6px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  nav li img {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  /* Task page */
+  .task-page {
+    padding: 20px 15px;
+  }
+
+  /* Task actions */
+  .task-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .action-group {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 15px 10px 40px;
+  }
+
+  .add-task {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    width: 100%;
+    padding: 12px 15px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filters-section,
+  .sort-section {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filter-bar select {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .filter-bar label {
+    font-size: 13px;
+  }
+
+  .clear-filter-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+
+  /* Task cards */
+  .task-card {
+    width: 100%;
+    padding: 16px;
+    margin: 10px auto;
+  }
+
+  .task-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .task-title {
+    font-size: 1rem;
+    white-space: normal;
+  }
+
+  .drag-icon {
+    font-size: 1rem;
+    margin-right: 8px;
+  }
+
+  .task-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .task-card .desc,
+  .task-card p {
+    font-size: 0.85rem;
+  }
+
+  .task-actions {
+    gap: 8px;
+  }
+
+  .task-actions i {
+    font-size: 0.95rem;
+  }
+
+  .task-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .priority {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+
+  .due {
+    font-size: 0.85rem;
+  }
+
+  .status-dropdown {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+
+  /* Subtasks */
+  .subtasks-container {
+    padding: 10px;
+  }
+
+  .subtask-list li {
+    font-size: 0.85rem;
+  }
+
+  .add-subtask input {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
+
+  .add-subtask-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 15px;
+  }
+
+  .modal {
+    width: 95%;
+    max-width: 550px;
+    padding: 25px 30px;
+  }
+
+  .modal h3 {
+    font-size: 1.1rem;
+  }
+
+  .modal input,
+  .modal textarea,
+  .modal select {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  /* Delete modal */
+  .delete-modal-overlay {
+    padding: 15px;
+  }
+
+  .delete-modal {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .delete-header h3 {
+    font-size: 1rem;
+  }
+
+  #deleteMessage {
+    font-size: 0.9rem;
+  }
+
+  /* Floating add button */
+  .floating-add-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    font-size: 1.6rem;
+  }
+
+  /* Toast notification */
+  .toast {
+    min-width: 300px;
+    max-width: 90%;
+    right: 15px;
+    left: 15px;
+    top: 60px;
+    font-size: 14px;
+  }
+
+  /* Empty state */
+  .empty-state {
+    margin-top: 80px;
+  }
+
+  .empty-state i {
+    font-size: 40px;
+  }
+
+  .empty-state p {
+    font-size: 14px;
+  }
+
+  /* Badge section */
+  .badge-section {
+    flex-wrap: wrap;
+  }
+
+  .badge,
+  .custom-badge,
+  .rule-badge,
+  .task-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}
+
+/* === MOBILE DEVICES (max-width: 480px) === */
+@media (max-width: 480px) {
+  /* Header */
+  .topbar {
+    padding: 10px 15px;
+    text-align: center;
+  }
+
+  .topbar h1 {
+    font-size: 22px;
+    padding: 5px;
+  }
+
+  .topbar p {
+    font-size: 12px;
+  }
+
+  /* Theme toggle */
+  .theme-toggle,
+  .dark-mode-toggle,
+  #themeToggle {
+    top: 12px;
+    right: 12px;
+    height: 36px;
+    width: 36px;
+    padding: 6px;
+  }
+
+  .theme-toggle i,
+  #themeToggle i {
+    font-size: 16px;
+  }
+
+  /* Navigation - FIT ALL ITEMS WITHOUT SCROLL */
+  nav {
+    width: 100%;
+    overflow: visible;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 8px;
+    margin: 0;
+    width: 100%;
+  }
+
+  nav ul li {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  nav ul li a {
+    font-size: 10px;
+    padding: 6px 4px;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  nav li img {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  /* Task page */
+  .task-page {
+    padding: 15px 10px;
+  }
+
+  /* Task actions */
+  .task-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .action-group {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 15px 10px 38px;
+  }
+
+  .search-box i {
+    left: 14px;
+    font-size: 0.9rem;
+  }
+
+  .add-task {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 16px;
+    font-size: 0.9rem;
+  }
+
+  .add-task img {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    width: 100%;
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .filters-section,
+  .sort-section {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter-bar select {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .filter-bar label {
+    font-size: 12px;
+  }
+
+  .filter-bar i,
+  .filter-bar img {
+    font-size: 0.9rem;
+    width: 16px;
+    height: 16px;
+  }
+
+  .clear-filter-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  /* Task cards */
+  .task-card {
+    width: 100%;
+    padding: 14px;
+    margin: 10px auto;
+    border-radius: 8px;
+  }
+
+  .task-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .task-title {
+    font-size: 0.95rem;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
+  .drag-icon {
+    font-size: 0.95rem;
+    margin-right: 6px;
+  }
+
+  .task-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .task-card .desc,
+  .task-card p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .task-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .task-actions i,
+  .task-actions img {
+    font-size: 0.9rem;
+    width: 18px;
+    height: 18px;
+  }
+
+  .task-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .priority {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  .priority img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .due {
+    font-size: 0.8rem;
+  }
+
+  .status-dropdown {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+    width: 100%;
+  }
+
+  /* Subtasks */
+  .subtasks-container {
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  .subtask-header {
+    font-size: 0.85rem;
+  }
+
+  .subtask-list li {
+    font-size: 0.8rem;
+    padding: 5px 0;
+  }
+
+  .subtask-list input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+  }
+
+  .subtask-icons i {
+    font-size: 14px;
+  }
+
+  .add-subtask {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .add-subtask input {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .add-subtask-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal {
+    width: 95%;
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .modal-header h3 {
+    font-size: 1rem;
+  }
+
+  .close-btn {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 12px;
+  }
+
+  .modal input,
+  .modal textarea,
+  .modal select {
+    font-size: 0.85rem;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
+
+  .condition-section,
+  .action-section {
+    padding: 12px;
+  }
+
+  .condition-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .condition-row select {
+    width: 100%;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cancel-btn,
+  .submit-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Delete modal */
+  .delete-modal-overlay {
+    padding: 10px;
+  }
+
+  .delete-modal {
+    width: 95%;
+    max-width: 340px;
+    padding: 18px;
+  }
+
+  .delete-header h3 {
+    font-size: 0.95rem;
+  }
+
+  .close-delete-modal {
+    font-size: 18px;
+  }
+
+  .delete-body,
+  #deleteMessage {
+    font-size: 0.85rem;
+  }
+
+  .delete-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cancel-delete,
+  .confirm-delete {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Floating add button */
+  .floating-add-btn {
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+
+  /* Toast notification */
+  .toast {
+    min-width: 280px;
+    max-width: 95%;
+    right: 10px;
+    left: 10px;
+    top: 50px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .toast-close {
+    font-size: 18px;
+  }
+
+  /* Empty state */
+  .empty-state {
+    margin-top: 60px;
+  }
+
+  .empty-state i {
+    font-size: 36px;
+  }
+
+  .empty-state p {
+    font-size: 13px;
+  }
+
+  /* Badge section */
+  .badge-section {
+    gap: 4px;
+  }
+
+  .badge,
+  .custom-badge,
+  .rule-badge,
+  .task-badge {
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+  }
+}
+
+/* === EXTRA SMALL MOBILE (max-width: 360px) === */
+@media (max-width: 360px) {
+  .topbar {
+    padding: 8px 12px;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .topbar p {
+    font-size: 11px;
+  }
+
+  .theme-toggle,
+  .dark-mode-toggle,
+  #themeToggle {
+    height: 32px;
+    width: 32px;
+    padding: 5px;
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Navigation - SMALLER FOR EXTRA SMALL SCREENS */
+  nav ul {
+    gap: 3px;
+    padding: 6px 6px;
+    width: 100%;
+  }
+
+  nav ul li {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  nav ul li a {
+    font-size: 9px;
+    padding: 5px 3px;
+    gap: 2px;
+  }
+
+  nav li img {
+    width: 11px;
+    height: 11px;
+  }
+
+  .task-page {
+    padding: 12px 8px;
+  }
+
+  .search-box input {
+    font-size: 0.85rem;
+    padding: 9px 12px 9px 36px;
+  }
+
+  .add-task {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .filter-bar {
+    padding: 10px;
+  }
+
+  .task-card {
+    padding: 12px;
+  }
+
+  .task-title {
+    font-size: 0.9rem;
+  }
+
+  .task-card .desc,
+  .task-card p {
+    font-size: 0.75rem;
+  }
+
+  .priority,
+  .due,
+  .status-dropdown {
+    font-size: 0.75rem;
+  }
+
+  .subtask-list li {
+    font-size: 0.75rem;
+  }
+
+  .floating-add-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .toast {
+    min-width: 260px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* === LANDSCAPE MODE FOR MOBILE === */
+@media (max-height: 500px) and (orientation: landscape) {
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .delete-modal {
+    max-height: 85vh;
+  }
+
+  .floating-add-btn {
+    bottom: 10px;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .toast {
+    top: 10px;
+  }
+}
+
+/* === DARK MODE MOBILE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  body.dark-mode nav {
+    background-color: #000;
+  }
+
+  body.dark-mode .search-box {
+    background: rgba(50, 50, 50, 0.4);
+    border-color: rgba(100, 100, 100, 0.6);
+  }
+
+  body.dark-mode .task-card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+  }
+
+  body.dark-mode .filter-bar {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+  }
+
+  body.dark-mode .modal {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+  }
+
+  body.dark-mode .delete-modal {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+  }
+}

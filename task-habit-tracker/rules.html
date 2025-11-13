@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rules - Task & Habit Tracker</title>
+  <link rel="stylesheet" href="rules.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <h1>Task & Habit Tracker</h1>
+      <p>Manage your tasks and build lasting habits with analytics and custom rules</p>
+    </div>
+    <button id="themeToggle" class="theme-toggle" title="Toggle theme">
+      <i class="fa-regular fa-moon"></i>
+    </button>
+
+   <nav>
+  <ul>
+    <li><a href="index.html"><img src="./assets/dashboard.svg" alt="Dashboard icon"> Dashboard</a></li>
+    <li><a href="tasks.html"><img src="./assets/tasks.svg" alt="Tasks icon"> Tasks</a></li>
+    <li><a href="habits.html"><img src="./assets/habits.svg" alt="Habits icon"> Habits</a></li>
+    <li class="active"><a href="rules.html"><img src="./assets/rules.svg" alt="Rules icon"> Rules</a></li>
+  </ul>
+</nav>
+  </header>
+
+  <main class="content">
+    <div class="search-section">
+      <h3 class="rules-title">Rules</h3>
+      <div class="search-bar">
+          <!-- <i class="fa-solid fa-search"></i> -->
+           <img src="./assets/search.png">
+          <input type="text" id="searchInput" placeholder="Search" />
+        </div>
+      <button id="addRuleBtn"><i class="fa-solid fa-plus"></i> Add Rule</button>
+    </div>
+
+    <section class="rules-section">
+      <div class="empty-state">
+        <i class="fa-solid fa-sliders"></i>
+        <p>No rules yet. Create automation rules to manage your tasks and habits</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- === Add Rule Modal === -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Rule</h3>
+        <button id="closeModal" class="close-btn">&times;</button>
+      </div>
+      <p class="subtext">Build custom rules with conditions and actions</p>
+
+      <form id="ruleForm">
+        <input type="text" placeholder="Rule Name" required />
+        <textarea rows="3" placeholder="Description"></textarea>
+
+        <!-- Apply To: Task or Habit -->
+        <label>Apply to</label>
+        <select id="applyToDropdown">
+          <option>Task</option>
+          <option>Habit</option>
+        </select>
+
+        <!-- Condition Section -->
+        <div class="condition-section">
+          <div class="condition-header">
+            <label>Condition Logic</label>
+            <select id="logicDropdown">
+              <option>AND</option>
+              <option>OR</option>
+            </select>
+          </div>
+
+          <div id="conditionsContainer" class="conditions-container">
+            <div class="condition-row">
+              <select>
+                <option>Priority</option>
+                <option>Status</option>
+                <option>Due date</option>
+              </select>
+              <select>
+                <option>equals to</option>
+                <option>not equal to</option>
+                <option>less than</option>
+                <option>greater than</option>
+              </select>
+              <select>
+                <option>Daily</option>
+                <option>Weekly</option>
+                <option>Custom</option>
+                <option>Today</option>
+                <option>Tomorrow</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="button" id="addConditionBtn" class="add-condition">
+            <i class="fa-solid fa-plus"></i> Add Condition
+          </button>
+        </div>
+
+        <!-- Action Section -->
+        <div class="action-section">
+          <label>Action</label>
+          <select>
+            <option>Show badge</option>
+            <option>Highlight</option>
+          </select>
+          <div class="form-group">
+            <label for="badgeValue">Badge Text</label>
+            <input type="text" id="badgeValue" placeholder="Enter badge text"/>
+          </div>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+          <button type="submit" class="submit-btn">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer"></div>
+
+  <script src="rules.js"></script>
+</body>
+</html>

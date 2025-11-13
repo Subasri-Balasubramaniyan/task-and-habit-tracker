@@ -1,0 +1,2985 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+* {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #f8f9fb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Header & Navigation ===== */
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.topbar {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+nav {
+  background-color: #f4f5f7;
+  border-bottom: 1px solid #ddd;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+nav ul li {
+  margin-right: 25px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #999;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+nav ul li a i {
+  margin-right: 8px;
+}
+
+nav ul li a:hover,
+nav ul li.active a {
+  background-color: #00b894;
+  color: #fff;
+}
+
+nav ul li a:hover i,
+nav ul li.active a i {
+  color: #fff;
+}
+
+/* ===== Main Content ===== */
+.content {
+  padding: 20px 30px;
+}
+
+/* ===== Rules + Search + Add Button ===== */
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.rules-title {
+  margin-right: auto;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin-left: 25px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: 10px;
+  color: #777;
+  font-size: 15px;
+}
+
+/* .search-box input {
+  padding: 8px 12px 8px 32px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  width: 250px;
+  background: #fff;
+} */
+.search-box input {
+  padding: 8px 12px 8px 32px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  width: 250px;
+  background: #fff;
+}
+#addRuleBtn {
+  background-color: #3ba776;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#addRuleBtn:hover {
+  background-color: #2e905f;
+  transform: translateY(-1px);
+}
+
+#addRuleBtn i {
+  font-size: 16px;
+}
+
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  color: #777;
+  margin-top: 60px;
+}
+
+.empty-state i {
+  font-size: 30px;
+  color: #bbb;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ===== Modal Styling ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 10px;
+  width: 500px;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.subtext {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.condition-section,
+.action-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.condition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conditions-container .condition-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.condition-row select {
+  flex: 1;
+}
+
+.delete-condition {
+  color: #d33;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-condition {
+  background: none;
+  color: #25a18e;
+  border: none;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background: none;
+  color: #25a18e;
+  border: 1px solid #25a18e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  background: #25a18e;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#logicDropdown {
+  width: 80px;
+}
+
+/* ===== Rule Cards ===== */
+.rule-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  /* padding: 14px 18px; */
+  padding: 15px;
+  margin-top: 15px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+  margin-left: 5px;
+}
+
+.rule-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.rule-info h4 {
+  font-size: 16px;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.rule-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.rule-tag {
+  font-size: 12px;
+  background: #f1f1f1;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+}
+
+.rule-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rule-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn {
+  color: #e74c3c;
+}
+
+.edit-btn {
+  color: #2ecc71;
+}
+
+/* ===== Toggle Switch ===== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2ecc71;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.delete-modal {
+  background: #fff;
+  border-radius: 8px;
+  width: 360px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease;
+}
+
+.delete-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.delete-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.close-delete-modal {
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.delete-body {
+  padding: 20px 16px;
+  font-size: 15px;
+}
+
+.delete-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+}
+
+.cancel-delete,
+.confirm-delete {
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.cancel-delete {
+  background: transparent;
+  border: 1px solid #52b788;
+  color: #52b788;
+}
+
+.cancel-delete:hover {
+  color: white;
+}
+
+.confirm-delete {
+  background:#54BD95;
+  border: none;
+  color: white;
+}
+
+.confirm-delete:hover {
+  background: #479e76;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* === Theme Toggle Button === */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background-color: black;
+  border: 1px solid #555;
+  color: #000;
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 999;
+  color: white;
+}
+
+.theme-toggle:hover {
+  background-color: black;
+  color: #fff;
+}
+
+/* === DARK MODE === */
+.theme-toggle{
+  background-color: black;
+  color: white;
+}
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Cards, Containers, Modals, etc */
+body.dark-mode .rule-card,
+body.dark-mode .modal,
+body.dark-mode .content-box,
+body.dark-mode .container {
+  background-color: #000;
+  color: #fff;
+  /* border: 1px solid #fff; */
+  padding: 15px;
+}
+
+/* Text Elements */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode p,
+body.dark-mode label,
+body.dark-mode span {
+  color: #fff;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode .add-btn,
+body.dark-mode .cancel-btn,
+body.dark-mode .save-btn {
+  background-color: lightseagreen;
+  color: white;
+  border: 1px solid #fff;
+}
+
+/* Edit and Delete Icons */
+body.dark-mode .edit-icon {
+  color: lightseagreen !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Inputs and Selects */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+/* On/Off Switch */
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: lightseagreen;
+}
+
+/* Smooth Transition */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === DARK MODE FOR RULES PAGE === */
+body.dark-mode,
+body.dark-mode .rules-section {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+body.dark-mode .rules-section h1,
+body.dark-mode .rules-section h2,
+body.dark-mode .rules-section h3,
+body.dark-mode .rules-section p,
+body.dark-mode .rules-section span,
+body.dark-mode .rules-section label {
+  color: #fff !important;
+}
+
+/* Cards, containers, and borders */
+body.dark-mode .rule-card,
+body.dark-mode .filter-box,
+body.dark-mode .rules-list,
+body.dark-mode .content-box {
+  background-color: #000 !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode .add-btn,
+body.dark-mode .edit-btn,
+body.dark-mode .cancel-btn,
+body.dark-mode .save-btn {
+  background-color: lightseagreen !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Toggle switch (on/off button) */
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: lightseagreen !important;
+}
+
+/* Icons */
+body.dark-mode .edit-icon {
+  color: lightseagreen !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Smooth transition */
+body,
+.rules-section {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === Dark Mode Styling === */
+body.dark-mode {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+/* Header, content, and cards */
+body.dark-mode header,
+body.dark-mode main,
+body.dark-mode .content,
+body.dark-mode .rules-section,
+body.dark-mode .rule-card {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Text colors */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label {
+  color: #fff !important;
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode #addRuleBtn {
+  background-color: lightseagreen !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+}
+
+/* Edit and delete icons */
+body.dark-mode .edit-icon {
+  color: lightseagreen !important;
+}
+
+body.dark-mode .delete-icon {
+  color: red !important;
+}
+
+/* Toggle switches */
+body.dark-mode input[type="checkbox"]:checked + .slider {
+  background-color: lightseagreen !important;
+}
+
+/* Input and search boxes */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #111 !important;
+  color: #fff !important;
+  /* border: 1px solid #fff !important; */
+}
+
+/* Transition effect */
+body, .content, .rules-section {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === Light Mode (Default) === */
+body {
+  background-color: #fff;
+  color: #000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav {
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover and active in light mode */
+nav a:hover,
+nav a.active {
+  background-color: lightseagreen;
+  color: #fff;
+}
+
+/* === Dark Mode === */
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Navbar dark */
+body.dark-mode nav {
+  background-color: #111;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+/* Nav links dark mode */
+body.dark-mode nav a {
+  color: #fff;
+}
+
+/* Hover effect for dark mode */
+body.dark-mode nav a:hover,
+body.dark-mode nav a.active {
+  background-color: lightseagreen;
+  color: #fff;
+}
+
+/* === Buttons and Icons in Dark Mode === */
+body.dark-mode button,
+body.dark-mode .add-task-btn {
+  background-color: lightseagreen;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+body.dark-mode button:hover {
+  background-color: #20b2aa;
+}
+
+/* Delete and edit icon colors */
+body.dark-mode .delete-btn {
+  color: red !important;
+}
+
+body.dark-mode .edit-btn {
+  color: lightseagreen !important;
+}
+
+/* Toggle (on/off) button color */
+body.dark-mode input[type="checkbox"]:checked {
+  accent-color: lightseagreen;
+}
+nav {
+  display: flex;
+  justify-content: flex-start; /* Align to left */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: transparent;
+}
+
+#themeToggle {
+  margin-left: 0; /* Remove any extra space */
+}
+
+nav i {
+  margin-right: 15px; /* Small space between icons */
+  cursor: pointer;
+  color: inherit;
+}
+body.dark-mode nav {
+  background-color: black;
+  color: white;
+}
+
+body.dark-mode i {
+  color:white;
+}
+/* Default (light mode) */
+#themeToggle i {
+  color: black;
+}
+
+/* When dark mode is active */
+body.dark-mode #themeToggle {
+  background-color: lightseagreen;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white; /* Icon turns white */
+}
+#themeToggle:hover i {
+  color: white;
+}
+#themeToggle {
+  background-color: lightseagreen;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#themeToggle i {
+  color: white; /* Always white icon */
+  font-size: 20px;
+}
+
+/* Dark mode adjustments */
+body.dark-mode #themeToggle {
+  background-color:black;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white; /* Keep it white in dark mode */
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+#themeToggle {
+  background-color: black !important; /* Always black background */
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin-left: 0;
+}
+
+#themeToggle i {
+  color: white !important; /* Always white icon */
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+#themeToggle:hover {
+  background-color: black !important;
+}
+
+#themeToggle:hover i {
+  color: white !important;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  background-color: #000;
+  color: #fff;
+}
+
+body.dark-mode nav {
+  background-color: #000;
+  color: white;
+  border-bottom: 1px solid #fff;
+}
+
+body.dark-mode nav a {
+  color: #fff;
+}
+
+body.dark-mode nav a:hover,
+body.dark-mode nav a.active {
+  background-color: lightseagreen;
+  color: #fff;
+}
+
+body.dark-mode #themeToggle {
+  background-color: black !important;
+  border: 1px solid white;
+}
+
+body.dark-mode #themeToggle i {
+  color: white !important;
+}
+
+/* Smooth transition */
+body, nav, #themeToggle {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* === THEME TOGGLE === */
+.theme-toggle {
+  background-color: black; /* stays black in both modes */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* icon color — always white */
+.theme-toggle i {
+  color: white !important;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+/* hover effect */
+.theme-toggle:hover {
+  background-color: lightseagreen;
+}
+
+/* === DARK MODE === */
+body.dark-mode .theme-toggle {
+  background-color: black;
+}
+
+body.dark-mode .theme-toggle i {
+  color: white !important;
+}
+/* === DELETE BUTTON === */
+.delete-btn {
+  
+  border: 1px solid #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn i {
+  color: black; /* default color in light mode */
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* === Dark mode: red delete icon === */
+body.dark-mode .delete-btn i {
+  color: red !important;
+}
+
+/* Optional hover effect */
+.delete-btn:hover {
+  background-color: #fff;
+}
+/* === DELETE & EDIT BUTTONS === */
+.delete-btn,
+.edit-btn {
+  background: transparent; /* no background */
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 6px;
+  transition: color 0.3s ease;
+}
+
+/* Light mode */
+.delete-btn i {
+  color: black;
+}
+.edit-btn i {
+  color: black;
+}
+
+/* Dark mode */
+body.dark-mode .delete-btn i {
+  color: red;
+}
+body.dark-mode .edit-btn i {
+  color: lightgreen;
+}
+
+/* Optional: hover effect */
+.delete-btn:hover i {
+  color: red;
+  transform: scale(1.1);
+}
+.edit-btn:hover i {
+  color: lightgreen;
+  transform: scale(1.1);
+}
+/* === DELETE & EDIT BUTTONS === */
+.delete-btn,
+.edit-btn {
+  background: transparent; /* no background */
+  border: none;            /* no border */
+  cursor: pointer;
+  font-size: 20px;
+  padding: 6px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Light mode */
+.delete-btn i {
+  color: black;
+}
+.edit-btn i {
+  color: black;
+}
+
+/* Dark mode */
+body.dark-mode .delete-btn i {
+  color: red;
+}
+body.dark-mode .edit-btn i {
+  color: lightgreen;
+}
+
+/* Optional: hover effects */
+.delete-btn:hover i {
+  color: red;
+  transform: scale(1.1);
+}
+.edit-btn:hover i {
+  color: lightseagreen;
+  transform: scale(1.1);
+}
+/* =========================
+   FORCE Dark Modal Styles
+   (Place at the END of rules.css)
+   ========================= */
+
+/* When dark mode is active on <body> (body.dark-mode) apply strong rules */
+body.dark-mode .modal,
+body.dark-mode .modal * {
+  color: #ffffff !important;
+  background-color: #000000 !important;
+  box-shadow: none !important;
+}
+
+/* Modal container border and rounding */
+body.dark-mode .modal {
+  border: 1px solid #ffffff !important;
+  background-clip: padding-box !important;
+}
+
+/* Headings and description text */
+body.dark-mode .modal-header h3,
+body.dark-mode .subtext {
+  color: #ffffff !important;
+}
+
+/* Inputs, selects, textareas - black BG, white text, white border */
+body.dark-mode .modal input,
+body.dark-mode .modal textarea,
+body.dark-mode .modal select {
+  background-color: #0d0d0d !important;   /* slightly off-black for inputs */
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Make placeholder text a bit lighter but visible */
+body.dark-mode .modal input::placeholder,
+body.dark-mode .modal textarea::placeholder {
+  color: #bfbfbf !important;
+}
+
+/* Condition & action panel (the white rounded boxes in light mode) */
+body.dark-mode .condition-section,
+body.dark-mode .action-section,
+body.dark-mode .conditions-container,
+body.dark-mode .conditions-container .condition-row {
+  background-color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* If you have inner "panel" wrappers that were white in light mode */
+body.dark-mode .modal .panel,
+body.dark-mode .modal .panel * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Individual dropdown styling to look consistent */
+body.dark-mode .modal select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  padding-left: 14px !important;
+}
+
+/* Add/Cancel/Submit buttons in modal */
+body.dark-mode .modal .cancel-btn,
+body.dark-mode .modal .submit-btn,
+body.dark-mode .modal button {
+  background-color: #20b2aa !important; /* lightseagreen */
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Make the close icon square teal but with white X (if you want) */
+body.dark-mode .modal .close-btn {
+  background-color: #18a98f !important;
+  color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+/* Ensure delete/edit icons inside modal and on cards are visible:
+   delete icon red, edit icon lightseagreen (strong override) */
+body.dark-mode .delete-btn,
+body.dark-mode .delete-icon,
+body.dark-mode .rule-actions .delete-btn i,
+body.dark-mode .rule-actions .delete-icon {
+  color: #ff4d4d !important; /* red */
+  background: transparent !important;
+  border: 0 !important;
+}
+
+body.dark-mode .edit-btn,
+body.dark-mode .edit-icon,
+body.dark-mode .rule-actions .edit-btn i,
+body.dark-mode .rule-actions .edit-icon {
+  color: #20b2aa !important; /* lightseagreen */
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Remove any square teal backgrounds that were applied to icon containers */
+body.dark-mode .rule-actions button,
+body.dark-mode .rule-actions .icon-button {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Toggle (on/off) slider - make ON color lightseagreen */
+body.dark-mode .switch .slider {
+  background-color: #444 !important;
+}
+body.dark-mode .switch input:checked + .slider {
+  background-color: #20b2aa !important;
+}
+
+/* Ensure high contrast outlines everywhere for forms */
+body.dark-mode .modal input:focus,
+body.dark-mode .modal textarea:focus,
+body.dark-mode .modal select:focus {
+  outline: 2px solid #ffffff !important;
+  outline-offset: 0px !important;
+}
+
+/* Force modal overlay to still darken background */
+body.dark-mode .modal-overlay {
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* If some internal white boxes remain, forcibly recolor them (catch-all) */
+body.dark-mode .modal [style*="background"] {
+  background-color: #000000 !important;
+}
+
+/* Smooth transition (optional) */
+body.dark-mode .modal,
+body.dark-mode .modal * {
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+/* === Delete Modal Dark Mode === */
+body.dark-mode .delete-modal {
+  background-color: #111;        /* black modal */
+  color: #fff;                   /* white text */
+  border: 1px solid #333;        /* subtle border */
+}
+
+/* Dark mode header and footer */
+body.dark-mode .delete-modal .delete-header {
+  border-bottom: 1px solid #333;
+}
+
+body.dark-mode .delete-modal .delete-footer {
+  border-top: 1px solid #333;
+}
+
+/* Buttons remain same color */
+.delete-modal .delete-footer button.cancel-delete,
+.delete-modal .delete-footer button.confirm-delete {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+/* Close “X” icon color in dark mode */
+body.dark-mode .delete-modal .close-delete-modal {
+  color: #fff;
+}
+/* === Tablet (Portrait & Landscape) === */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+  /* Header alignment */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Filter and Sort section */
+  .filters-container,
+  .sort-container {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .filters-container select,
+  .sort-container select {
+    width: 48%;
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+
+  /* Search and Add rules section */
+  .search-add-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+
+  .search-add-container input[type="text"] {
+    width: 70%;
+    font-size: 1rem;
+  }
+
+  .search-add-container .add-rule-btn {
+    width: 25%;
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+.search-box input {
+ 
+  background: transparent;
+  outline: none;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+}
+  /* Rule Cards */
+  .rule-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .rule-card .rule-info h4 {
+    font-size: 1.05rem;
+  }
+
+  .rule-card .rule-info p {
+    font-size: 0.9rem;
+  }
+
+  .rule-card .rule-actions {
+    align-self: flex-end;
+    display: flex;
+    gap: 8px;
+  }
+
+  .rule-card .rule-actions button {
+    font-size: 1rem;
+    padding: 6px 8px;
+  }
+
+  /* Modal Responsiveness */
+  .delete-modal {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .delete-modal .delete-footer button {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* Adjust typography */
+  .rules-section h2,
+  .filters-title {
+    font-size: 1.1rem;
+  }
+}
+/* =========================
+   Mobile Responsive Styles
+   ========================= */
+@media (max-width: 768px) {
+  /* Overall layout */
+  body {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .filters-container select,
+  .filters-container .filter-group {
+    width: 100%;
+  }
+
+  /* Sort section */
+  .sort-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  /* Search bar */
+  .search-bar {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  /* Add Rule button */
+  .add-rule-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  /* Rule cards */
+  .rule-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .rule-card h4 {
+    font-size: 1rem;
+  }
+
+  .rule-card p {
+    font-size: 0.9rem;
+  }
+
+  /* Buttons inside rule card */
+  .rule-card .actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Toggle */
+  .toggle-switch {
+    transform: scale(0.9);
+  }
+
+  /* Rule tag (Task / Habit) */
+  .rule-tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Dashboard navbar */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  nav a {
+    flex: 1 1 45%;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Reduce padding for cards */
+  .card, .rule-card {
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  /* Adjust heading */
+  .section-title {
+    text-align: center;
+  }
+}
+
+/* Even smaller screens (phones under 480px) */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .rule-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .rule-card p {
+    font-size: 0.85rem;
+  }
+
+  .add-rule-btn {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+/* Toast Container */
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Toast Box */
+.toast {
+  display: flex;
+  align-items: center;
+  background-color: #e6f4ea;
+  color: #000;
+  padding: 14px 18px;
+  border-radius: 8px;
+  min-width: 300px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.4s ease, fadeOut 0.4s ease 3s forwards;
+}
+
+/* Green bar on left */
+.toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: #34a853;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* Emoji/Icon */
+.toast .icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Close Button */
+.toast .close-btn {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+/* Light Mode */
+.rule-tag {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* Dark Mode */
+body.dark-mode .rule-tag {
+  background-color: #333;
+  color: #fff;
+}
+/* === DARK MODE === */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark header,
+body.dark nav ul,
+body.dark .modal {
+  background-color: #1e1e1e;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-color: #444;
+}
+
+body.dark .rule-card {
+  background: #1f1f1f;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark .rule-badge {
+  background-color: #007bff !important;
+  color: #fff;
+}
+
+body.dark .theme-toggle i {
+  color: #fff;
+}
+
+body.dark .empty-state p {
+  color: #ccc;
+}
+
+body.dark .modal {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.theme-toggle i {
+  transition: color 0.3s;
+}
+/* ===== Base layout ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: #ffffff;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  background-color: #f0f0f0;
+  color: #222;
+  padding: 1rem;
+  position: relative;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 1rem 0 0;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}
+
+nav li.active a {
+  color: #007bff;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #444;
+}
+
+/* ===== Main content ===== */
+main {
+  padding: 1.5rem;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rules-title {
+  margin: 0;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+.search-box input {
+ 
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+}
+
+#addRuleBtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+#addRuleBtn:hover {
+  background-color: #0056b3;
+}
+
+/* ===== Empty state ===== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #777;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn,
+.submit-btn {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #ccc;
+}
+
+.submit-btn {
+  background: #007bff;
+  color: white;
+}
+
+/* ===== Toast ===== */
+#toastContainer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1100;
+}
+
+/* ========================
+   DARK MODE STYLES
+======================== */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark-mode header {
+  background-color: #1c1c1c;
+  color: #f5f5f5;
+}
+
+body.dark-mode nav a {
+  color: #e0e0e0;
+}
+
+body.dark-mode nav li.active a {
+  color: #66b3ff;
+}
+
+body.dark-mode .theme-toggle {
+  color: #f5f5f5;
+}
+
+body.dark-mode .search-box {
+  background: #222;
+}
+
+
+
+body.dark-mode #addRuleBtn {
+  background-color: #2196f3;
+}
+
+body.dark-mode .empty-state {
+  color: #ccc;
+}
+
+body.dark-mode .empty-state i {
+  color: #bbb;
+}
+
+body.dark-mode .modal {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .cancel-btn {
+  background: #555;
+  color: #fff;
+}
+
+body.dark-mode .submit-btn {
+  background: #2196f3;
+  color: #fff;
+}
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* NEW — align title on left, search + button on right */
+.rules-title {
+  margin: 0;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  margin-left: auto; /* moves it to the right */
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: #555;
+}
+
+#addRuleBtn {
+  background-color:#54BD95;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin-left: 0.5rem; /* small space between search box & button */
+}
+@media (max-width: 600px) {
+  .search-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-box,
+  #addRuleBtn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  background: var(--search-bg, #f1f1f1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+              /* ✅ removes the outer border */
+  box-shadow: none;          /* ✅ prevents any shadow line */
+  outline: none;
+  margin-left: auto;
+}
+
+.search-box input {
+            /* ✅ removes input border */
+  background: transparent;
+  outline: none;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+}
+
+.search-box i {
+  margin-right: 0.5rem;
+  color: var(--icon-color, #555);
+}
+body.dark-mode {
+  --search-bg: #222;        /* darker background */
+  --text-color: #ddd;
+  --icon-color: #ccc;
+}
+.rule-item {
+  border-radius: 8px;
+  padding: 10px;
+  margin: 8px 0;
+  transition: border-color 0.3s ease;
+}
+
+.rule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.condition-badge {
+  display: inline-block;
+  background: #f4f4f4;
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: 4px;
+  font-size: 0.85rem;
+}
+
+.delete-rule {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  border-radius: 25px;
+  padding: 6px 12px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 160px;
+}
+body.dark-mode .search-bar {
+  background-color: #1a1a1a;
+  /* border: 1px solid #333; */
+  border: none;
+}
+.search-bar input{
+  border: none;
+}
+nav {
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0;
+}
+
+body.dark-mode nav {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  gap: 0;
+}
+
+nav ul li {
+  position: relative;
+  margin: 0;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 16px 20px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+nav ul li a i {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* Remove any background on hover */
+nav ul li a:hover {
+  background-color: transparent !important;
+  color: #10b981;
+}
+
+nav ul li a:hover i {
+  color: #10b981;
+}
+
+/* Active state with underline */
+nav ul li.active a {
+  color: #10b981;
+  background-color: transparent;
+}
+
+nav ul li.active a i {
+  color: #10b981;
+}
+
+/* Underline effect */
+nav ul li.active a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #10b981;
+}
+
+/* Hover underline effect */
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #10b981;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Keep underline visible on active */
+nav ul li.active a::after {
+  transform: scaleX(1);
+}
+
+body.dark-mode nav ul li a {
+  color: #9ca3af;
+}
+
+body.dark-mode nav ul li a:hover {
+  color: #10b981;
+}
+
+body.dark-mode nav ul li.active a {
+  color: #10b981;
+}
+nav li img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  filter: grayscale(100%) brightness(0.3); /* make inactive icons gray */
+  transition: filter 0.3s ease;
+  vertical-align: middle;
+}
+nav li:hover img {
+  filter: invert(59%) sepia(82%) saturate(409%) hue-rotate(118deg) brightness(92%) contrast(90%);
+}
+nav li.active img {
+  filter: invert(59%) sepia(82%) saturate(409%) hue-rotate(118deg) brightness(92%) contrast(90%);
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  width: 250px; /* adjust width as needed */
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.search-bar img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.4); /* subtle grey tint */
+  transition: filter 0.3s ease;
+}
+
+.search-bar img:hover {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(85%) saturate(651%) hue-rotate(180deg);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background: transparent;
+}
+
+.search-bar input::placeholder {
+  color: #888;
+}
+/* ===== THEME TOGGLE BUTTON - Updated Styles ===== */
+
+/* Light Mode - White background with border */
+.theme-toggle,
+#themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background-color: white !important;
+  border: 1px solid #D4D4D4;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease;
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+}
+
+.theme-toggle:hover,
+#themeToggle:hover {
+  background-color: white !important;
+  border-color: #999;
+}
+
+/* Icon styling in light mode */
+.theme-toggle i,
+#themeToggle i,
+.theme-toggle img,
+#themeToggle img {
+  color: #333 !important;
+  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  transition: none;
+}
+
+/* Dark Mode - NO background, WHITE border */
+body.dark-mode .theme-toggle,
+body.dark-mode #themeToggle {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: 1px solid #D4D4D4 !important;
+}
+
+body.dark-mode .theme-toggle:hover,
+body.dark-mode #themeToggle:hover {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: 1px solid #D4D4D4 !important;
+}
+
+/* Icon styling in dark mode - WHITE */
+body.dark-mode .theme-toggle i,
+body.dark-mode #themeToggle i,
+body.dark-mode .theme-toggle img,
+body.dark-mode #themeToggle img {
+  color: white !important;
+  filter: brightness(1) invert(0);
+}
+
+/* Ensure hover doesn't change icon color in dark mode */
+body.dark-mode .theme-toggle:hover i,
+body.dark-mode #themeToggle:hover i,
+body.dark-mode .theme-toggle:hover img,
+body.dark-mode #themeToggle:hover img {
+  color: white !important;
+}
+
+/* Remove all conflicting background styles */
+body.dark-mode #themeToggle,
+body.dark-mode .theme-toggle {
+  box-shadow: none !important;
+}
+
+/* Override any inline styles */
+body.dark-mode [id="themeToggle"],
+body.dark-mode [class*="theme-toggle"] {
+  background-color: transparent !important;
+  background: none !important;
+  border: none !important;
+}
+/* === Taller Search Bar === */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 50px;
+  padding: 12px 18px;       /* ⬆️ Increased padding for height */
+  width: 280px;             /* optional: can adjust width */
+  transition: all 0.3s ease;
+}
+
+.search-bar i {
+  color: #6b7280;
+  font-size: 18px;          /* slightly larger icon */
+  margin-right: 10px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+}
+
+.search-bar input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.search-bar:hover {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: #d1d5db;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 0 0 2px #3b82f6;
+  border-color: #3b82f6;
+  background: #fff;
+}
+/* ===== Dark Mode - White Filter and Sort Icons ===== */
+
+/* Make filter icons white in dark mode */
+body.dark-mode .filter-box img,
+body.dark-mode .filters-section img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Make sort icons white in dark mode */
+body.dark-mode .sort-box img,
+body.dark-mode .sort-section img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Keep icons white on hover */
+body.dark-mode .filter-box img:hover,
+body.dark-mode .filters-section img:hover,
+body.dark-mode .sort-box img:hover,
+body.dark-mode .sort-section img:hover {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* ===== Dark Mode - Navigation Icons ===== */
+
+/* Make navigation icons white in dark mode (except active) */
+body.dark-mode nav li img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Keep white on hover */
+body.dark-mode nav li:hover img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Active navigation icon stays teal/green */
+body.dark-mode nav li.active img {
+  filter: invert(68%) sepia(56%) saturate(566%) hue-rotate(115deg) brightness(91%) contrast(101%) !important;
+}
+
+/* ===== Dark Mode - Search Icon White ===== */
+
+/* Make search icon white in dark mode */
+body.dark-mode .search-bar img,
+body.dark-mode .search-box img,
+body.dark-mode .search-bar i,
+body.dark-mode .search-box i {
+  filter: brightness(0) invert(1) !important;
+  color: white !important;
+}
+
+/* Keep search icon white on hover */
+body.dark-mode .search-bar img:hover,
+body.dark-mode .search-box img:hover,
+body.dark-mode .search-bar i:hover,
+body.dark-mode .search-box i:hover {
+  filter: brightness(0) invert(1) !important;
+  color: white !important;
+}
+
+/* ===== Remove Search Box Inner Border ===== */
+
+/* Light mode - remove inner border */
+.search-box,
+.search-bar {
+  border: none !important;
+  outline: none !important;
+}
+
+.search-box input,
+.search-bar input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Dark mode - remove inner border and keep consistent styling */
+body.dark-mode .search-box,
+body.dark-mode .search-bar {
+  background-color: #1a1a1a !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .search-box input,
+body.dark-mode .search-bar input {
+  background: transparent !important;
+  color: #fff !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove focus borders */
+.search-box:focus-within,
+.search-bar:focus-within {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body.dark-mode .search-box:focus-within,
+body.dark-mode .search-bar:focus-within {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+#addRuleBtn:hover{
+background-color: #54BD95;
+}
+.submit-btn{
+  background-color: #54BD95;
+  width: 80px;
+}
+.cancel-btn{
+  background-color: #fff;
+  color: #54BD95;
+  border: 1px solid green;
+}
+.cancel-delete{
+  background-color: #fff;
+  color: #54BD95;
+  border: 1px solid  green;
+}
+/* ==========================================================
+   RESPONSIVE STYLES FOR RULES PAGE
+   Mobile First Approach with Laptop/Desktop Breakpoints
+   ========================================================== */
+
+/* ===== BASE MOBILE STYLES (320px - 767px) ===== */
+@media (max-width: 767px) {
+  
+  /* Header & Navigation */
+  header {
+    padding: 10px;
+  }
+  
+  .topbar {
+    padding: 10px 15px;
+  }
+  
+  .topbar h1 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  /* Theme Toggle - Reposition for mobile */
+  .theme-toggle,
+  #themeToggle {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    padding: 8px;
+  }
+  
+  .theme-toggle i,
+  #themeToggle i {
+    font-size: 16px;
+  }
+  
+  /* Navigation - Keep horizontal on mobile */
+  nav ul {
+    flex-direction: row;
+    padding: 10px;
+    gap: 5px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+  }
+  
+  nav ul li {
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+  
+  nav ul li a {
+    white-space: nowrap;
+    justify-content: center;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  
+  nav ul li a i,
+  nav ul li a img {
+    margin-right: 6px;
+  }
+  
+  /* Search Section - Stack elements */
+  .search-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .rules-title {
+    font-size: 1.1rem;
+    margin-left: 0;
+    text-align: center;
+  }
+  
+  /* Search Box - Full width */
+  .search-box,
+  .search-bar {
+    width: 100%;
+    margin-left: 0 !important;
+    padding: 10px 12px;
+  }
+  
+  .search-box input,
+  .search-bar input {
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  /* Add Rule Button - Full width */
+  #addRuleBtn {
+    width: 100%;
+    margin-left: 0 !important;
+    padding: 12px 18px;
+    font-size: 14px;
+    justify-content: center;
+  }
+  
+  /* Content Area */
+  .content {
+    padding: 15px;
+  }
+  
+  /* Rule Cards - Optimize for mobile */
+  .rule-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    margin-left: 0;
+    gap: 10px;
+  }
+  
+  .rule-info {
+    width: 100%;
+  }
+  
+  .rule-info h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .rule-info p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .rule-tag {
+    font-size: 11px;
+    padding: 2px 6px;
+    margin-left: 4px;
+  }
+  
+  /* Rule Actions - Stack or inline depending on space */
+  .rule-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    gap: 8px;
+  }
+  
+  .rule-actions button {
+    font-size: 18px;
+    padding: 8px;
+  }
+  
+  /* Toggle Switch - Slightly smaller */
+  .switch {
+    width: 32px;
+    height: 18px;
+  }
+  
+  .slider:before {
+    height: 12px;
+    width: 12px;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(14px);
+  }
+  
+  /* Modal - Optimize for mobile screens */
+  .modal {
+    width: 95%;
+    max-width: 95%;
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .modal input,
+  .modal select,
+  .modal textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .condition-section,
+  .action-section {
+    padding: 12px;
+  }
+  
+  .conditions-container .condition-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .condition-row select {
+    width: 100%;
+  }
+  
+  .modal-buttons {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+  
+  .cancel-btn,
+  .submit-btn {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  /* Delete Modal */
+  .delete-modal {
+    width: 90%;
+    max-width: 90%;
+  }
+  
+  .delete-footer {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+  
+  .cancel-delete,
+  .confirm-delete {
+    width: 100%;
+    padding: 10px 18px;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    margin-top: 40px;
+    padding: 20px;
+  }
+  
+  .empty-state i {
+    font-size: 24px;
+  }
+  
+  /* Toast Container - Reposition for mobile */
+  #toastContainer {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+  
+  .toast {
+    min-width: auto;
+    width: 100%;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+}
+
+/* ===== SMALL MOBILE PHONES (320px - 480px) ===== */
+@media (max-width: 480px) {
+  
+  .topbar h1 {
+    font-size: 1.1rem;
+  }
+  
+  .rules-title {
+    font-size: 1rem;
+  }
+  
+  .rule-info h4 {
+    font-size: 13px;
+  }
+  
+  .rule-info p {
+    font-size: 12px;
+  }
+  
+  .modal {
+    padding: 15px;
+  }
+  
+  .modal-header h3 {
+    font-size: 15px;
+  }
+  
+  nav ul li a {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+/* ===== TABLET (768px - 1024px) ===== */
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+  /* Header */
+  .topbar {
+    padding: 12px 20px;
+  }
+  
+  .topbar h1 {
+    font-size: 1.4rem;
+  }
+  
+  /* Navigation - Horizontal but compact */
+  nav ul {
+    padding: 10px 15px;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  nav ul li a {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
+  
+  /* Search Section */
+  .search-section {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .rules-title {
+    font-size: 1.2rem;
+    flex: 1 1 100%;
+    margin-bottom: 10px;
+  }
+  
+  .search-box,
+  .search-bar {
+    width: calc(60% - 6px);
+  }
+  
+  #addRuleBtn {
+    width: calc(40% - 6px);
+  }
+  
+  /* Content */
+  .content {
+    padding: 20px 25px;
+  }
+  
+  /* Rule Cards */
+  .rule-card {
+    padding: 14px;
+  }
+  
+  .rule-info h4 {
+    font-size: 15px;
+  }
+  
+  .rule-info p {
+    font-size: 13px;
+  }
+  
+  /* Modal */
+  .modal {
+    width: 85%;
+    max-width: 600px;
+  }
+  
+  /* Delete Modal */
+  .delete-modal {
+    width: 70%;
+    max-width: 500px;
+  }
+}
+
+/* ===== LAPTOP/DESKTOP (1025px - 1440px) ===== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  
+  /* Header */
+  .topbar {
+    padding: 15px 30px;
+  }
+  
+  .topbar h1 {
+    font-size: 1.5rem;
+  }
+  
+  /* Navigation */
+  nav ul {
+    padding: 10px 30px;
+    gap: 20px;
+  }
+  
+  /* Search Section - Optimal layout */
+  .search-section {
+    margin-bottom: 25px;
+  }
+  
+  .rules-title {
+    font-size: 1.3rem;
+    flex: 1;
+  }
+  
+  .search-box,
+  .search-bar {
+    width: 280px;
+  }
+  
+  #addRuleBtn {
+    width: auto;
+    min-width: 150px;
+  }
+  
+  /* Content */
+  .content {
+    padding: 20px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Rule Cards - Two column layout option */
+  .rule-card {
+    padding: 15px 18px;
+  }
+  
+  /* Modal */
+  .modal {
+    width: 500px;
+    max-width: 90%;
+  }
+}
+
+/* ===== LARGE DESKTOP (1441px+) ===== */
+@media (min-width: 1441px) {
+  
+  /* Center content with max width */
+  .content {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 25px 50px;
+  }
+  
+  header,
+  nav {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  
+  /* Optimal spacing for large screens */
+  .search-section {
+    margin-bottom: 30px;
+  }
+  
+  .rule-card {
+    padding: 16px 20px;
+  }
+  
+  .modal {
+    width: 550px;
+  }
+}
+
+/* ===== LANDSCAPE ORIENTATION ADJUSTMENTS ===== */
+@media (max-width: 767px) and (orientation: landscape) {
+  
+  /* Keep horizontal nav in landscape */
+  nav ul {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 5px 10px;
+    overflow-x: auto;
+  }
+  
+  nav ul li {
+    flex-shrink: 0;
+  }
+  
+  nav ul li a {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .content {
+    padding: 12px 15px;
+  }
+  
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* ===== UTILITY CLASSES FOR RESPONSIVE DESIGN ===== */
+.hide-mobile {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block !important;
+  }
+  
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+.text-center-mobile {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-center-mobile {
+    text-align: left;
+  }
+}
+
+/* ===== TOUCH TARGET IMPROVEMENTS FOR MOBILE ===== */
+@media (max-width: 767px) {
+  
+  /* Ensure minimum touch target size of 44x44px */
+  button,
+  .rule-actions button,
+  .delete-btn,
+  .edit-btn,
+  nav ul li a,
+  .close-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Increase tap area for toggle switch */
+  .switch {
+    padding: 5px;
+  }
+}
+
+/* ===== PREVENT HORIZONTAL SCROLL ===== */
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ===== IMPROVE MODAL SCROLLING ON MOBILE ===== */
+@media (max-width: 767px) {
+  .modal-overlay {
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .modal {
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  
+  .delete-modal-overlay {
+    padding: 10px;
+  }
+}
+
+/* ===== ACCESSIBILITY - FOCUS STATES ===== */
+@media (min-width: 768px) {
+  
+  /* Better focus indicators on larger screens */
+  button:focus,
+  input:focus,
+  select:focus,
+  textarea:focus,
+  a:focus {
+    outline: 2px solid #54BD95;
+    outline-offset: 2px;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  
+  /* Hide non-essential elements when printing */
+  .theme-toggle,
+  #themeToggle,
+  #addRuleBtn,
+  .search-box,
+  .rule-actions,
+  nav,
+  .modal-overlay,
+  .delete-modal-overlay,
+  #toastContainer {
+    display: none !important;
+  }
+  
+  /* Optimize rule cards for printing */
+  .rule-card {
+    page-break-inside: avoid;
+    border: 1px solid #333;
+    margin-bottom: 10px;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task & Habit Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="title-group">
+        <h1>Task & Habit Tracker</h1>
+        <p>Manage your tasks and build lasting habits with analytics and custom rules</p>
+      </div>
+      <button id="theme-toggle" class="theme-toggle">
+       
+      </button>
+    </div>
+
+    <nav>
+  <ul>
+    <li class="active" data-link="index.html">
+      <!-- <i class="fa-solid fa-chart-line"></i>-->
+       <img src="./assets/dashboard.svg"> Dashboard 
+    </li>
+    <li data-link="tasks.html">
+      <!-- <i class="fa-solid fa-list-check"></i>-->
+       <img src="./assets/tasks.svg"> Tasks
+    </li>
+    <li data-link="habits.html">
+      <!-- <i class="fa-solid fa-bolt"></i> -->
+       <img src="./assets/habits.svg">Habits
+    </li>
+    <li data-link="rules.html">
+      <!-- <i class="fa-solid fa-gear"></i>  -->
+      <img src="./assets/rules.svg">Rules
+    </li>
+  </ul>
+</nav>
+
+  </header>
+
+  <main class="dashboard">
+    <div class="cards">
+      <div class="card completed">
+        <h3>Completed tasks</h3>
+        <div class="count">1</div>
+        <p>In the last 7 Days</p>
+        <span class="icon success"><img src="./assets/success.svg"></span>
+      </div>
+      <div class="card overdue">
+        <h3>Overdue tasks</h3>
+        <div class="count">1</div>
+        <p>Total overdue</p>
+        <span class="icon danger"><img src="./assets/danger.svg"></span>
+      </div>
+      <div class="card active">
+        <h3>Active habits</h3>
+        <div class="count">0</div>
+        <p>Now active</p>
+        <span class="icon info"><img src="./assets/active.svg"></span>
+      </div>
+      <div class="card streak">
+        <h3>Longest Streak</h3>
+        <div class="count">0</div>
+        <p>All-time record</p>
+        <span class="icon warning"><img src="./assets/streak.svg"></span>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="chart-card">
+        <h4>Status Overview</h4>
+        <p>Get a snapshot of the status of your work items.</p>
+        <canvas id="statusChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h4>Habit Completion Trend</h4>
+        <p>Track your daily habit completion over the past week.</p>
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
